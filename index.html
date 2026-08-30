@@ -2,742 +2,855 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cookie Clicker</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Cookie Empire</title>
 <style>
-* {
-    box-sizing: border-box;
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#17100b;
+    color:#fff;
+    overflow:hidden;
 }
-
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #2b160b;
-    color: white;
-    overflow-x: hidden;
+button{font-family:inherit}
+#game{
+    height:100vh;
+    display:grid;
+    grid-template-columns:32% 38% 30%;
 }
-
-#game {
-    display: flex;
-    min-height: 100vh;
-}
-
-/* LEFT SIDE */
-
-#left {
-    width: 42%;
-    min-width: 330px;
-    background: linear-gradient(#4a2918, #211008);
-    text-align: center;
-    padding: 25px;
-    position: relative;
-    border-right: 4px solid #170b05;
-}
-
-h1 {
-    margin: 5px 0 10px;
-    font-size: 34px;
-}
-
-#cookieCount {
-    font-size: 27px;
-    font-weight: bold;
-    margin: 10px;
-}
-
-#cps {
-    color: #ffd36b;
-    margin-bottom: 25px;
-}
-
-#cookie {
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
+/* ================= LEFT ================= */
+#left{
     background:
-        radial-gradient(circle at 30% 25%, #8b4d24 0 4%, transparent 5%),
-        radial-gradient(circle at 70% 30%, #6b3517 0 5%, transparent 6%),
-        radial-gradient(circle at 45% 70%, #6b3517 0 5%, transparent 6%),
-        radial-gradient(circle at 75% 70%, #8b4d24 0 4%, transparent 5%),
-        radial-gradient(circle at 20% 60%, #5d2d15 0 4%, transparent 5%),
-        #d99345;
-
-    border: 12px solid #7b421e;
+      radial-gradient(circle at center,#60401e 0,#392313 48%,#1d1009 100%);
+    border-right:3px solid #0d0805;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+}
+#title{
+    font-size:27px;
+    font-weight:bold;
+    padding:14px 5px 5px;
+    text-shadow:2px 2px #000;
+}
+#subtitle{
+    color:#d9b68a;
+    font-size:13px;
+}
+#cookieCount{
+    margin-top:17px;
+    font-size:29px;
+    font-weight:bold;
+    text-shadow:2px 2px #000;
+}
+#perSecond{
+    margin-top:4px;
+    color:#e9c27b;
+    font-size:15px;
+}
+#cookieArea{
+    height:calc(100% - 155px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+#cookie{
+    width:min(310px,72%);
+    aspect-ratio:1;
+    border-radius:50%;
+    cursor:pointer;
+    position:relative;
+    background:
+      radial-gradient(circle at 25% 23%,#743c18 0 4%,transparent 4.7%),
+      radial-gradient(circle at 62% 18%,#5b2d12 0 3%,transparent 3.8%),
+      radial-gradient(circle at 78% 35%,#733916 0 4%,transparent 4.7%),
+      radial-gradient(circle at 38% 43%,#5a2b12 0 3%,transparent 3.8%),
+      radial-gradient(circle at 68% 58%,#5a2b12 0 4%,transparent 4.7%),
+      radial-gradient(circle at 23% 68%,#713816 0 3.5%,transparent 4.2%),
+      radial-gradient(circle at 51% 78%,#5b2d12 0 4%,transparent 4.7%),
+      radial-gradient(circle at 83% 76%,#733916 0 3%,transparent 3.8%),
+      #c9782d;
+    border:11px solid #8b4b1e;
     box-shadow:
-        inset 0 0 20px #5c2c12,
-        0 10px 30px rgba(0,0,0,.5);
-
-    cursor: pointer;
-    transition: transform .05s;
-    margin-top: 15px;
+      inset 0 0 25px rgba(70,30,5,.8),
+      0 8px 20px #000;
+    transition:transform .06s;
 }
-
-#cookie:active {
-    transform: scale(.94);
+#cookie:hover{
+    filter:brightness(1.08);
 }
-
-#clickPower {
-    margin-top: 25px;
-    font-size: 16px;
+#cookie:active{
+    transform:scale(.94);
 }
-
-#goldenCookie {
-    display: none;
-    position: fixed;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #fff29a, #ffc400);
-    border: 6px solid #fff;
-    box-shadow: 0 0 30px #ffd000;
-    cursor: pointer;
-    z-index: 10;
+.clickNumber{
+    position:fixed;
+    pointer-events:none;
+    font-weight:bold;
+    font-size:22px;
+    color:#fff;
+    text-shadow:1px 1px #000;
+    animation:floatUp 1s forwards;
+    z-index:30;
 }
-
-/* RIGHT SIDE */
-
-#right {
-    flex: 1;
-    background: #3b2112;
-    padding: 15px;
-    overflow-y: auto;
+@keyframes floatUp{
+    to{
+        transform:translateY(-90px);
+        opacity:0;
+    }
 }
-
-.sectionTitle {
-    font-size: 22px;
-    font-weight: bold;
-    padding: 10px;
-    border-bottom: 2px solid #70401e;
+/* ================= CENTER ================= */
+#middle{
+    background:#302015;
+    border-right:3px solid #0d0805;
+    overflow-y:auto;
 }
-
-.shopItem {
-    display: flex;
-    align-items: center;
-    background: #4d2b17;
-    border: 2px solid #70401e;
-    margin: 8px 0;
-    padding: 10px;
-    border-radius: 7px;
-    cursor: pointer;
-    transition: .15s;
+.panelHeader{
+    height:56px;
+    background:linear-gradient(#654527,#3d2818);
+    border-bottom:2px solid #170d08;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 14px;
+    font-weight:bold;
+    text-shadow:1px 1px #000;
 }
-
-.shopItem:hover {
-    background: #61371c;
+#buyMode{
+    display:flex;
+    gap:4px;
 }
-
-.shopItem.disabled {
-    opacity: .45;
-    cursor: not-allowed;
+#buyMode button{
+    border:1px solid #8a6338;
+    background:#382316;
+    color:#ddd;
+    padding:5px 8px;
+    cursor:pointer;
+    border-radius:3px;
 }
-
-.icon {
-    width: 55px;
-    height: 55px;
-    border-radius: 8px;
-    background: #211008;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-    margin-right: 12px;
+#buyMode button.active{
+    background:#9b672e;
+    color:white;
 }
-
-.itemInfo {
-    flex: 1;
+#buildings{
+    padding:5px;
 }
-
-.itemName {
-    font-weight: bold;
-    font-size: 18px;
+.building{
+    height:76px;
+    margin-bottom:5px;
+    display:flex;
+    align-items:center;
+    background:linear-gradient(90deg,#50331e,#392517);
+    border:2px solid #714b29;
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
 }
-
-.itemDesc {
-    font-size: 13px;
-    color: #d6b99d;
-    margin-top: 3px;
+.building:hover{
+    background:linear-gradient(90deg,#604024,#452b19);
 }
-
-.itemPrice {
-    color: #ffd15c;
-    margin-top: 5px;
+.building.locked{
+    opacity:.5;
 }
-
-.itemOwned {
-    font-size: 13px;
-    color: #aaa;
+.buildingIcon{
+    width:70px;
+    height:70px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:42px;
+    background:rgba(0,0,0,.18);
 }
-
+.buildingInfo{
+    flex:1;
+    padding:5px 7px;
+}
+.buildingName{
+    font-size:18px;
+    font-weight:bold;
+}
+.buildingDesc{
+    color:#c9ad8b;
+    font-size:12px;
+    margin-top:3px;
+}
+.buildingPrice{
+    color:#ffd166;
+    font-size:14px;
+    margin-top:5px;
+}
+.buildingOwned{
+    width:65px;
+    font-size:27px;
+    color:#c59b68;
+    text-align:center;
+    font-weight:bold;
+}
+.progress{
+    position:absolute;
+    bottom:0;
+    left:0;
+    height:3px;
+    background:#d99a45;
+    width:0%;
+}
+/* ================= RIGHT ================= */
+#right{
+    background:#24160d;
+    overflow-y:auto;
+}
+.tabs{
+    display:flex;
+    height:56px;
+}
+.tab{
+    flex:1;
+    border:0;
+    border-right:1px solid #1a0e08;
+    background:#392417;
+    color:#ddd;
+    cursor:pointer;
+    font-weight:bold;
+}
+.tab.active{
+    background:#72502d;
+    color:white;
+}
+.tabContent{
+    padding:10px;
+}
+.hidden{
+    display:none!important;
+}
 /* UPGRADES */
-
-#upgrades {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 7px;
-    margin-top: 10px;
+#upgradeGrid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:6px;
 }
-
-.upgrade {
-    background: #513019;
-    border: 2px solid #805127;
-    padding: 10px;
-    border-radius: 7px;
-    cursor: pointer;
-    min-height: 85px;
+.upgrade{
+    min-height:72px;
+    background:#49301b;
+    border:2px solid #76502c;
+    padding:6px;
+    cursor:pointer;
+    border-radius:4px;
+    position:relative;
 }
-
-.upgrade:hover {
-    background: #684020;
+.upgrade:hover{
+    background:#62401f;
 }
-
-.upgrade.disabled {
-    opacity: .45;
-    cursor: not-allowed;
+.upgrade.unaffordable{
+    opacity:.4;
 }
-
-.upgradeName {
-    font-weight: bold;
+.upgradeIcon{
+    font-size:25px;
 }
-
-.upgradePrice {
-    color: #ffd15c;
-    font-size: 13px;
-    margin-top: 5px;
+.upgradeName{
+    font-size:11px;
+    font-weight:bold;
 }
-
-/* NOTIFICATIONS */
-
-#notification {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #17100c;
-    padding: 15px 25px;
-    border-radius: 8px;
-    border: 2px solid #9a642d;
-    display: none;
-    z-index: 20;
+.upgradePrice{
+    color:#ffd166;
+    font-size:10px;
+    margin-top:3px;
 }
-
-/* RESPONSIVE */
-
-@media(max-width: 800px) {
-    #game {
-        flex-direction: column;
+/* ACHIEVEMENTS */
+#achievementGrid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:5px;
+}
+.achievement{
+    aspect-ratio:1;
+    background:#21150e;
+    border:2px solid #50351e;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:26px;
+    filter:grayscale(1);
+    opacity:.35;
+}
+.achievement.unlocked{
+    filter:none;
+    opacity:1;
+    background:#50351e;
+}
+/* STATS */
+.stat{
+    background:#392416;
+    padding:11px;
+    margin-bottom:6px;
+    border:1px solid #604126;
+}
+.stat span{
+    float:right;
+    color:#ffd166;
+}
+/* GOLDEN COOKIE */
+#goldenCookie{
+    position:fixed;
+    display:none;
+    width:82px;
+    height:82px;
+    border-radius:50%;
+    background:
+      radial-gradient(circle,#fff7a8,#ffd21c 55%,#f19b00);
+    border:5px solid #fff;
+    box-shadow:0 0 30px #ffc400;
+    cursor:pointer;
+    z-index:100;
+    animation:goldSpin 1s infinite alternate;
+}
+@keyframes goldSpin{
+    from{transform:scale(.9) rotate(-8deg)}
+    to{transform:scale(1.08) rotate(8deg)}
+}
+/* NOTIFICATION */
+#notification{
+    position:fixed;
+    bottom:22px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#17100b;
+    border:2px solid #9b672e;
+    box-shadow:0 4px 15px #000;
+    padding:13px 24px;
+    display:none;
+    z-index:200;
+}
+/* MOBILE */
+@media(max-width:900px){
+    body{overflow:auto}
+    #game{
+        height:auto;
+        min-height:100vh;
+        grid-template-columns:1fr;
     }
-
-    #left {
-        width: 100%;
+    #left{
+        height:480px;
+        border-right:0;
+        border-bottom:3px solid #0d0805;
     }
-
-    #right {
-        width: 100%;
+    #middle,#right{
+        height:auto;
+        max-height:none;
+        overflow:visible;
     }
-
-    #cookie {
-        width: 230px;
-        height: 230px;
+    #cookie{
+        width:230px;
+    }
+    #upgradeGrid,
+    #achievementGrid{
+        grid-template-columns:repeat(4,1fr);
     }
 }
 </style>
 </head>
-
 <body>
-
 <div id="game">
-
-    <div id="left">
-
-        <h1>🍪 Cookie Factory</h1>
-
+    <!-- LEFT -->
+    <section id="left">
+        <div id="title">🍪 COOKIE EMPIRE</div>
+        <div id="subtitle">A perfectly ordinary cookie factory</div>
         <div id="cookieCount">0 cookies</div>
-
-        <div id="cps">per second: 0</div>
-
-        <div id="cookie"></div>
-
-        <div id="clickPower">
-            Each click: <b id="clickValue">1</b> cookie
+        <div id="perSecond">per second: 0</div>
+        <div id="cookieArea">
+            <div id="cookie"></div>
         </div>
-
-    </div>
-
-
-    <div id="right">
-
-        <div class="sectionTitle">Upgrades</div>
-
-        <div id="upgrades"></div>
-
-        <div class="sectionTitle">Buildings</div>
-
-        <div id="shop"></div>
-
-    </div>
-
+    </section>
+    <!-- MIDDLE -->
+    <section id="middle">
+        <div class="panelHeader">
+            <span>BUILDINGS</span>
+            <div id="buyMode">
+                <button data-mode="1" class="active">1</button>
+                <button data-mode="10">10</button>
+                <button data-mode="100">100</button>
+            </div>
+        </div>
+        <div id="buildings"></div>
+    </section>
+    <!-- RIGHT -->
+    <section id="right">
+        <div class="tabs">
+            <button class="tab active" data-tab="upgrades">UPGRADES</button>
+            <button class="tab" data-tab="achievements">ACHIEVEMENTS</button>
+            <button class="tab" data-tab="stats">STATS</button>
+        </div>
+        <div id="upgradesTab" class="tabContent">
+            <div id="upgradeGrid"></div>
+        </div>
+        <div id="achievementsTab" class="tabContent hidden">
+            <h3>Achievements</h3>
+            <div id="achievementGrid"></div>
+        </div>
+        <div id="statsTab" class="tabContent hidden">
+            <div class="stat">
+                Cookies <span id="statCookies">0</span>
+            </div>
+            <div class="stat">
+                Cookies per second <span id="statCps">0</span>
+            </div>
+            <div class="stat">
+                Cookies per click <span id="statClick">1</span>
+            </div>
+            <div class="stat">
+                Buildings <span id="statBuildings">0</span>
+            </div>
+            <div class="stat">
+                Upgrades <span id="statUpgrades">0</span>
+            </div>
+            <div class="stat">
+                Achievements <span id="statAchievements">0</span>
+            </div>
+            <div class="stat">
+                Golden cookies <span id="statGolden">0</span>
+            </div>
+            <button onclick="resetGame()"
+                style="margin-top:15px;padding:10px;background:#63251b;color:white;border:1px solid #a64b35;cursor:pointer">
+                RESET GAME
+            </button>
+        </div>
+    </section>
 </div>
-
-
-<div id="goldenCookie"></div>
-
+<div id="goldenCookie">🍪</div>
 <div id="notification"></div>
-
-
 <script>
-
-/* =========================
-   GAME DATA
-========================= */
-
+/* =====================================================
+   GAME STATE
+===================================================== */
 let cookies = 0;
 let totalCookies = 0;
 let clickPower = 1;
-
-const buildings = [
-    ["Cursor", "👆", 15, 0.1],
-    ["Grandma", "👵", 100, 1],
-    ["Farm", "🌾", 500, 8],
-    ["Mine", "⛏️", 2500, 47],
-    ["Factory", "🏭", 10000, 260],
-    ["Bank", "🏦", 50000, 1400],
-    ["Temple", "⛪", 250000, 7800],
-    ["Wizard Tower", "🧙", 1_200_000, 44_000],
-    ["Shipment", "🚀", 6_000_000, 260_000],
-    ["Alchemy Lab", "⚗️", 30_000_000, 1_600_000],
-    ["Portal", "🌀", 150_000_000, 10_000_000],
-    ["Time Machine", "⏰", 800_000_000, 65_000_000],
-    ["Antimatter Plant", "⚛️", 4_000_000_000, 430_000_000],
-    ["Prism", "🌈", 20_000_000_000, 2_900_000_000],
-    ["Chancemaker", "🎰", 100_000_000_000, 19_000_000_000],
-    ["Fractal Engine", "🔷", 500_000_000_000, 120_000_000_000],
-    ["JavaScript Engine", "💻", 2_500_000_000_000, 720_000_000_000],
-    ["Cookie Reactor", "☢️", 12_000_000_000_000, 4_500_000_000_000],
-    ["Quantum Bakery", "🧬", 60_000_000_000_000, 27_000_000_000_000],
-    ["Cookie Universe", "🌌", 300_000_000_000_000, 160_000_000_000_000]
+let buyMode = 1;
+let goldenCookies = 0;
+let frenzyUntil = 0;
+let buildings = [
+    {name:"Cursor",icon:"👆",base:15,cps:.1,owned:0},
+    {name:"Grandma",icon:"👵",base:100,cps:1,owned:0},
+    {name:"Farm",icon:"🌾",base:500,cps:8,owned:0},
+    {name:"Mine",icon:"⛏️",base:2500,cps:47,owned:0},
+    {name:"Factory",icon:"🏭",base:10000,cps:260,owned:0},
+    {name:"Bank",icon:"🏦",base:50000,cps:1400,owned:0},
+    {name:"Temple",icon:"⛪",base:250000,cps:7800,owned:0},
+    {name:"Wizard Tower",icon:"🧙",base:1200000,cps:44000,owned:0},
+    {name:"Shipment",icon:"🚀",base:6000000,cps:260000,owned:0},
+    {name:"Alchemy Lab",icon:"⚗️",base:30000000,cps:1600000,owned:0},
+    {name:"Portal",icon:"🌀",base:150000000,cps:10000000,owned:0},
+    {name:"Time Machine",icon:"⏰",base:800000000,cps:65000000,owned:0},
+    {name:"Antimatter Plant",icon:"⚛️",base:4000000000,cps:430000000,owned:0},
+    {name:"Prism",icon:"🌈",base:20000000000,cps:2900000000,owned:0},
+    {name:"Chancemaker",icon:"🎰",base:100000000000,cps:19000000000,owned:0},
+    {name:"Fractal Engine",icon:"🔷",base:500000000000,cps:120000000000,owned:0},
+    {name:"Code Factory",icon:"💻",base:2500000000000,cps:720000000000,owned:0},
+    {name:"Cookie Reactor",icon:"☢️",base:12000000000000,cps:4500000000000,owned:0},
+    {name:"Quantum Bakery",icon:"🧬",base:60000000000000,cps:27000000000000,owned:0},
+    {name:"Cookie Universe",icon:"🌌",base:300000000000000,cps:160000000000000,owned:0}
 ];
-
-let owned = new Array(buildings.length).fill(0);
-
-const upgrades = [
-    ["Stronger Fingers", 100, "Clicks produce 2× cookies", "click2"],
-    ["Golden Dough", 500, "Clicks produce 3× cookies", "click3"],
-    ["Grand Recipe", 3000, "Grandmas produce 2×", "grandma2"],
-    ["Better Farms", 15000, "Farms produce 2×", "farm2"],
-    ["Industrial Baking", 75000, "Factories produce 2×", "factory2"],
-    ["Bank Interest", 300000, "Banks produce 2×", "bank2"],
-    ["Temple Blessing", 1_000_000, "Temples produce 2×", "temple2"],
-    ["Magic Flour", 5_000_000, "Wizard Towers produce 2×", "wizard2"],
-    ["Rocket Fuel", 30_000_000, "Shipments produce 2×", "shipment2"],
-    ["Advanced Alchemy", 200_000_000, "Alchemy Labs produce 2×", "alchemy2"],
-    ["Portal Science", 1_000_000_000, "Portals produce 2×", "portal2"],
-    ["Time Mastery", 8_000_000_000, "Time Machines produce 2×", "time2"]
+let upgrades = [
+    {name:"Better Fingers",icon:"☝️",price:100,type:"click",mult:2},
+    {name:"Strong Fingers",icon:"💪",price:1000,type:"click",mult:2},
+    {name:"Golden Dough",icon:"🟡",price:10000,type:"click",mult:2},
+    {name:"Reinforced Cursor",icon:"🖱️",price:500,type:"building",building:0,mult:2},
+    {name:"Grandma's Recipe",icon:"📖",price:3000,type:"building",building:1,mult:2},
+    {name:"Farm Science",icon:"🌱",price:15000,type:"building",building:2,mult:2},
+    {name:"Better Pickaxes",icon:"⛏️",price:75000,type:"building",building:3,mult:2},
+    {name:"Factory Automation",icon:"⚙️",price:300000,type:"building",building:4,mult:2},
+    {name:"Banking System",icon:"💰",price:1500000,type:"building",building:5,mult:2},
+    {name:"Temple Blessing",icon:"✨",price:7000000,type:"building",building:6,mult:2},
+    {name:"Magic Research",icon:"🔮",price:30000000,type:"building",building:7,mult:2},
+    {name:"Rocket Engineering",icon:"🚀",price:150000000,type:"building",building:8,mult:2},
+    {name:"Advanced Alchemy",icon:"🧪",price:800000000,type:"building",building:9,mult:2},
+    {name:"Portal Control",icon:"🌀",price:4000000000,type:"building",building:10,mult:2},
+    {name:"Time Mastery",icon:"⌛",price:20000000000,type:"building",building:11,mult:2}
 ];
-
 let boughtUpgrades = [];
-
-
-/* =========================
-   FORMAT NUMBERS
-========================= */
-
-function formatNumber(num) {
-
-    if (num < 1000)
-        return Math.floor(num).toLocaleString();
-
-    const suffixes = [
+let achievements = [
+    {name:"First Cookie",icon:"🍪",check:()=>totalCookies>=1},
+    {name:"Hundred Cookies",icon:"💯",check:()=>totalCookies>=100},
+    {name:"Thousand Cookies",icon:"🥉",check:()=>totalCookies>=1000},
+    {name:"Cookie Hoarder",icon:"🍪",check:()=>totalCookies>=100000},
+    {name:"Millionaire",icon:"💰",check:()=>totalCookies>=1000000},
+    {name:"Ten Million",icon:"💎",check:()=>totalCookies>=10000000},
+    {name:"Click Master",icon:"👆",check:()=>totalCookies>=1000 && clickPower>=4},
+    {name:"Collector",icon:"🏪",check:()=>buildings.reduce((a,b)=>a+b.owned,0)>=10},
+    {name:"Factory Owner",icon:"🏭",check:()=>buildings[4].owned>=10},
+    {name:"Big Business",icon:"🏢",check:()=>buildings.reduce((a,b)=>a+b.owned,0)>=50},
+    {name:"Golden Touch",icon:"✨",check:()=>goldenCookies>=1},
+    {name:"Lucky",icon:"🍀",check:()=>goldenCookies>=7}
+];
+let unlockedAchievements=[];
+/* =====================================================
+   NUMBER FORMATTING
+===================================================== */
+function fmt(n){
+    if(n<1000) return Math.floor(n).toLocaleString();
+    const units=[
         "K","M","B","T","Qa","Qi","Sx","Sp","Oc","No","Dc"
     ];
-
-    let tier = Math.floor(Math.log10(num) / 3);
-
-    if (tier <= 0)
-        return Math.floor(num).toLocaleString();
-
-    let value = num / Math.pow(1000, tier);
-
-    return value.toFixed(2) + suffixes[tier - 1];
+    let tier=Math.floor(Math.log10(n)/3);
+    if(tier>units.length)
+        return n.toExponential(2);
+    return (n/Math.pow(1000,tier)).toFixed(2)+units[tier-1];
 }
-
-
-/* =========================
-   BUILDINGS
-========================= */
-
-function getBuildingPrice(index) {
-
-    let base = buildings[index][2];
-
-    return Math.floor(base * Math.pow(1.15, owned[index]));
-}
-
-
-function getBuildingCps(index) {
-
-    let cps = buildings[index][3];
-
-    const upgradeID = buildings[index][0].toLowerCase().split(" ")[0] + "2";
-
-    if (boughtUpgrades.includes(upgradeID))
-        cps *= 2;
-
-    return cps;
-}
-
-
-function getCPS() {
-
-    let cps = 0;
-
-    for (let i = 0; i < buildings.length; i++) {
-        cps += owned[i] * getBuildingCps(i);
-    }
-
-    return cps;
-}
-
-
-/* =========================
-   CLICKING
-========================= */
-
-document.getElementById("cookie").addEventListener("click", () => {
-
-    cookies += clickPower;
-    totalCookies += clickPower;
-
-    update();
-
-    createClickNumber(clickPower);
-});
-
-
-function createClickNumber(amount) {
-
-    const number = document.createElement("div");
-
-    number.textContent = "+" + formatNumber(amount);
-
-    number.style.position = "fixed";
-    number.style.left = (Math.random() * 250 + 100) + "px";
-    number.style.top = "55%";
-    number.style.color = "#fff";
-    number.style.fontSize = "22px";
-    number.style.fontWeight = "bold";
-    number.style.pointerEvents = "none";
-    number.style.transition = "1s";
-
-    document.body.appendChild(number);
-
-    setTimeout(() => {
-        number.style.transform = "translateY(-80px)";
-        number.style.opacity = "0";
-    }, 20);
-
-    setTimeout(() => number.remove(), 1000);
-}
-
-
-/* =========================
-   SHOP
-========================= */
-
-function renderShop() {
-
-    const shop = document.getElementById("shop");
-
-    shop.innerHTML = "";
-
-    buildings.forEach((building, index) => {
-
-        const price = getBuildingPrice(index);
-
-        const div = document.createElement("div");
-
-        div.className = "shopItem";
-
-        if (cookies < price)
-            div.classList.add("disabled");
-
-        div.innerHTML = `
-            <div class="icon">${building[1]}</div>
-
-            <div class="itemInfo">
-
-                <div class="itemName">
-                    ${building[0]}
-                </div>
-
-                <div class="itemDesc">
-                    ${formatNumber(getBuildingCps(index))} cookies/sec
-                </div>
-
-                <div class="itemPrice">
-                    🍪 ${formatNumber(price)}
-                </div>
-
-            </div>
-
-            <div class="itemOwned">
-                ${owned[index]}
-            </div>
-        `;
-
-        div.onclick = () => buyBuilding(index);
-
-        shop.appendChild(div);
+/* =====================================================
+   COOKIE PRODUCTION
+===================================================== */
+function buildingMultiplier(index){
+    let mult=1;
+    upgrades.forEach((u,i)=>{
+        if(
+            u.type==="building" &&
+            u.building===index &&
+            boughtUpgrades.includes(i)
+        ){
+            mult*=u.mult;
+        }
     });
+    return mult;
 }
-
-
-function buyBuilding(index) {
-
-    const price = getBuildingPrice(index);
-
-    if (cookies < price)
-        return;
-
-    cookies -= price;
-
-    owned[index]++;
-
-    showNotification("Bought " + buildings[index][0] + "!");
-
+function getCps(){
+    let cps=0;
+    buildings.forEach((b,i)=>{
+        cps+=b.owned*b.cps*buildingMultiplier(i);
+    });
+    if(Date.now()<frenzyUntil)
+        cps*=7;
+    return cps;
+}
+/* =====================================================
+   CLICK COOKIE
+===================================================== */
+document.getElementById("cookie").onclick=function(e){
+    let amount=clickPower;
+    if(Date.now()<frenzyUntil)
+        amount*=7;
+    cookies+=amount;
+    totalCookies+=amount;
+    floatingNumber("+"+fmt(amount),e.clientX,e.clientY);
+    checkAchievements();
+    update();
+};
+function floatingNumber(text,x,y){
+    let el=document.createElement("div");
+    el.className="clickNumber";
+    el.textContent=text;
+    el.style.left=x+"px";
+    el.style.top=y+"px";
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),1000);
+}
+/* =====================================================
+   BUILDINGS
+===================================================== */
+function buildingPrice(index){
+    let b=buildings[index];
+    return Math.floor(
+        b.base*Math.pow(1.15,b.owned)
+    );
+}
+function bulkCost(index,amount){
+    let total=0;
+    for(let i=0;i<amount;i++){
+        total+=Math.floor(
+            buildings[index].base*
+            Math.pow(1.15,buildings[index].owned+i)
+        );
+    }
+    return total;
+}
+function buyBuilding(index){
+    let amount=buyMode;
+    let cost=bulkCost(index,amount);
+    if(cookies<cost) return;
+    cookies-=cost;
+    buildings[index].owned+=amount;
+    showNotification(
+        "+"+amount+" "+buildings[index].name
+    );
+    checkAchievements();
     update();
 }
-
-
-/* =========================
-   UPGRADES
-========================= */
-
-function renderUpgrades() {
-
-    const container = document.getElementById("upgrades");
-
-    container.innerHTML = "";
-
-    upgrades.forEach(upgrade => {
-
-        const [name, price, description, id] = upgrade;
-
-        if (boughtUpgrades.includes(id))
-            return;
-
-        const div = document.createElement("div");
-
-        div.className = "upgrade";
-
-        if (cookies < price)
-            div.classList.add("disabled");
-
-        div.innerHTML = `
-            <div class="upgradeName">
-                ${name}
+function renderBuildings(){
+    let container=document.getElementById("buildings");
+    container.innerHTML="";
+    buildings.forEach((b,i)=>{
+        let cost=bulkCost(i,buyMode);
+        let div=document.createElement("div");
+        div.className="building";
+        if(cookies<cost)
+            div.classList.add("locked");
+        div.innerHTML=`
+            <div class="buildingIcon">${b.icon}</div>
+            <div class="buildingInfo">
+                <div class="buildingName">
+                    ${b.name}
+                </div>
+                <div class="buildingDesc">
+                    ${fmt(b.cps*buildingMultiplier(i))}
+                    cookies per second
+                </div>
+                <div class="buildingPrice">
+                    🍪 ${fmt(cost)}
+                </div>
             </div>
-
-            <div>
-                ${description}
+            <div class="buildingOwned">
+                ${b.owned}
             </div>
-
-            <div class="upgradePrice">
-                🍪 ${formatNumber(price)}
-            </div>
+            <div class="progress"></div>
         `;
-
-        div.onclick = () => buyUpgrade(upgrade);
-
+        div.onclick=()=>buyBuilding(i);
         container.appendChild(div);
     });
 }
-
-
-function buyUpgrade(upgrade) {
-
-    const [name, price, description, id] = upgrade;
-
-    if (cookies < price)
+/* =====================================================
+   UPGRADES
+===================================================== */
+function buyUpgrade(index){
+    if(boughtUpgrades.includes(index))
         return;
-
-    cookies -= price;
-
-    boughtUpgrades.push(id);
-
-    if (id === "click2")
-        clickPower *= 2;
-
-    if (id === "click3")
-        clickPower *= 3;
-
-    showNotification("Upgrade purchased: " + name);
-
+    let u=upgrades[index];
+    if(cookies<u.price)
+        return;
+    cookies-=u.price;
+    boughtUpgrades.push(index);
+    if(u.type==="click")
+        clickPower*=u.mult;
+    showNotification("Upgrade bought: "+u.name);
+    checkAchievements();
     update();
 }
-
-
-/* =========================
-   GOLDEN COOKIE
-========================= */
-
-function spawnGoldenCookie() {
-
-    const golden = document.getElementById("goldenCookie");
-
-    golden.style.display = "block";
-
-    golden.style.left =
-        Math.random() * (window.innerWidth - 100) + "px";
-
-    golden.style.top =
-        Math.random() * (window.innerHeight - 150) + "px";
-
-    setTimeout(() => {
-        golden.style.display = "none";
-    }, 10000);
+function renderUpgrades(){
+    let grid=document.getElementById("upgradeGrid");
+    grid.innerHTML="";
+    upgrades.forEach((u,i)=>{
+        if(boughtUpgrades.includes(i))
+            return;
+        let div=document.createElement("div");
+        div.className="upgrade";
+        if(cookies<u.price)
+            div.classList.add("unaffordable");
+        div.innerHTML=`
+            <div class="upgradeIcon">${u.icon}</div>
+            <div class="upgradeName">${u.name}</div>
+            <div class="upgradePrice">
+                🍪 ${fmt(u.price)}
+            </div>
+        `;
+        div.onclick=()=>buyUpgrade(i);
+        grid.appendChild(div);
+    });
 }
-
-
-document.getElementById("goldenCookie").onclick = () => {
-
-    const bonus = Math.max(
-        cookies * 0.1,
-        getCPS() * 60
-    );
-
-    cookies += bonus;
-    totalCookies += bonus;
-
-    document.getElementById("goldenCookie").style.display = "none";
-
-    showNotification(
-        "Golden cookie! +" + formatNumber(bonus)
-    );
-
+/* =====================================================
+   ACHIEVEMENTS
+===================================================== */
+function checkAchievements(){
+    achievements.forEach((a,i)=>{
+        if(
+            !unlockedAchievements.includes(i) &&
+            a.check()
+        ){
+            unlockedAchievements.push(i);
+            showNotification(
+                "Achievement unlocked: "+a.name
+            );
+        }
+    });
+}
+function renderAchievements(){
+    let grid=document.getElementById("achievementGrid");
+    grid.innerHTML="";
+    achievements.forEach((a,i)=>{
+        let div=document.createElement("div");
+        div.className="achievement";
+        if(unlockedAchievements.includes(i))
+            div.classList.add("unlocked");
+        div.textContent=a.icon;
+        div.title=a.name;
+        grid.appendChild(div);
+    });
+}
+/* =====================================================
+   GOLDEN COOKIES
+===================================================== */
+function spawnGolden(){
+    let g=document.getElementById("goldenCookie");
+    g.style.display="block";
+    g.style.left=
+        Math.max(20,Math.random()*(innerWidth-110))+"px";
+    g.style.top=
+        Math.max(70,Math.random()*(innerHeight-150))+"px";
+    setTimeout(()=>{
+        if(g.style.display==="block")
+            g.style.display="none";
+    },12000);
+}
+document.getElementById("goldenCookie").onclick=()=>{
+    let g=document.getElementById("goldenCookie");
+    g.style.display="none";
+    goldenCookies++;
+    if(Math.random()<.5){
+        let reward=Math.max(
+            cookies*.15,
+            getCps()*60
+        );
+        cookies+=reward;
+        totalCookies+=reward;
+        showNotification(
+            "Lucky! +"+fmt(reward)+" cookies"
+        );
+    }else{
+        frenzyUntil=Date.now()+77000;
+        showNotification(
+            "COOKIE FRENZY! 7× production!"
+        );
+    }
+    checkAchievements();
     update();
 };
-
-
-/* =========================
-   NOTIFICATION
-========================= */
-
-function showNotification(text) {
-
-    const notification = document.getElementById("notification");
-
-    notification.textContent = text;
-
-    notification.style.display = "block";
-
-    setTimeout(() => {
-        notification.style.display = "none";
-    }, 2500);
-}
-
-
-/* =========================
-   SAVE SYSTEM
-========================= */
-
-function saveGame() {
-
-    const save = {
-        cookies,
-        totalCookies,
-        clickPower,
-        owned,
-        boughtUpgrades
+setInterval(()=>{
+    if(Math.random()<.35)
+        spawnGolden();
+},30000);
+/* =====================================================
+   TABS
+===================================================== */
+document.querySelectorAll(".tab").forEach(button=>{
+    button.onclick=()=>{
+        document.querySelectorAll(".tab")
+            .forEach(x=>x.classList.remove("active"));
+        button.classList.add("active");
+        document.querySelectorAll(".tabContent")
+            .forEach(x=>x.classList.add("hidden"));
+        document.getElementById(
+            button.dataset.tab+"Tab"
+        ).classList.remove("hidden");
     };
-
+});
+/* =====================================================
+   BUY MODES
+===================================================== */
+document.querySelectorAll("#buyMode button")
+.forEach(button=>{
+    button.onclick=()=>{
+        document.querySelectorAll("#buyMode button")
+            .forEach(x=>x.classList.remove("active"));
+        button.classList.add("active");
+        buyMode=Number(button.dataset.mode);
+        renderBuildings();
+    };
+});
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+let notificationTimer;
+function showNotification(text){
+    let n=document.getElementById("notification");
+    n.textContent=text;
+    n.style.display="block";
+    clearTimeout(notificationTimer);
+    notificationTimer=setTimeout(()=>{
+        n.style.display="none";
+    },2500);
+}
+/* =====================================================
+   SAVE
+===================================================== */
+function saveGame(){
     localStorage.setItem(
-        "cookieFactorySave",
-        JSON.stringify(save)
+        "cookieEmpire",
+        JSON.stringify({
+            cookies,
+            totalCookies,
+            clickPower,
+            goldenCookies,
+            buildings,
+            boughtUpgrades,
+            unlockedAchievements
+        })
     );
 }
-
-
-function loadGame() {
-
-    const save =
-        JSON.parse(localStorage.getItem("cookieFactorySave"));
-
-    if (!save)
-        return;
-
-    cookies = save.cookies || 0;
-    totalCookies = save.totalCookies || 0;
-    clickPower = save.clickPower || 1;
-
-    if (save.owned)
-        owned = save.owned;
-
-    if (save.boughtUpgrades)
-        boughtUpgrades = save.boughtUpgrades;
+function loadGame(){
+    let save=localStorage.getItem("cookieEmpire");
+    if(!save) return;
+    try{
+        let data=JSON.parse(save);
+        cookies=data.cookies||0;
+        totalCookies=data.totalCookies||0;
+        clickPower=data.clickPower||1;
+        goldenCookies=data.goldenCookies||0;
+        if(data.buildings)
+            buildings=data.buildings;
+        boughtUpgrades=data.boughtUpgrades||[];
+        unlockedAchievements=
+            data.unlockedAchievements||[];
+    }catch(e){
+        console.log("Save failed");
+    }
 }
-
-
-/* =========================
-   UPDATE UI
-========================= */
-
-function update() {
-
-    const cps = getCPS();
-
-    document.getElementById("cookieCount").textContent =
-        formatNumber(cookies) + " cookies";
-
-    document.getElementById("cps").textContent =
-        "per second: " + formatNumber(cps);
-
-    document.getElementById("clickValue").textContent =
-        formatNumber(clickPower);
-
-    renderShop();
+/* =====================================================
+   RESET
+===================================================== */
+function resetGame(){
+    if(!confirm("Reset ALL cookie progress?"))
+        return;
+    localStorage.removeItem("cookieEmpire");
+    location.reload();
+}
+/* =====================================================
+   UPDATE
+===================================================== */
+function update(){
+    let cps=getCps();
+    document.getElementById("cookieCount")
+        .textContent=fmt(cookies)+" cookies";
+    document.getElementById("perSecond")
+        .textContent="per second: "+fmt(cps);
+    document.getElementById("statCookies")
+        .textContent=fmt(totalCookies);
+    document.getElementById("statCps")
+        .textContent=fmt(cps);
+    document.getElementById("statClick")
+        .textContent=fmt(clickPower);
+    document.getElementById("statBuildings")
+        .textContent=buildings.reduce(
+            (sum,b)=>sum+b.owned,0
+        );
+    document.getElementById("statUpgrades")
+        .textContent=boughtUpgrades.length;
+    document.getElementById("statAchievements")
+        .textContent=
+            unlockedAchievements.length+
+            "/"+
+            achievements.length;
+    document.getElementById("statGolden")
+        .textContent=goldenCookies;
+    renderBuildings();
     renderUpgrades();
-
+    renderAchievements();
     saveGame();
 }
-
-
-/* =========================
-   PASSIVE COOKIES
-========================= */
-
-setInterval(() => {
-
-    const cps = getCPS();
-
-    cookies += cps / 10;
-    totalCookies += cps / 10;
-
+/* =====================================================
+   GAME LOOP
+===================================================== */
+let lastTime=Date.now();
+setInterval(()=>{
+    let now=Date.now();
+    let elapsed=(now-lastTime)/1000;
+    lastTime=now;
+    let amount=getCps()*elapsed;
+    cookies+=amount;
+    totalCookies+=amount;
+    checkAchievements();
     update();
-
-}, 100);
-
-
-/* =========================
-   GOLDEN COOKIE TIMER
-========================= */
-
-setInterval(() => {
-
-    if (Math.random() < 0.35)
-        spawnGoldenCookie();
-
-}, 30000);
-
-
-/* =========================
+},100);
+/* =====================================================
    START
-========================= */
-
+===================================================== */
 loadGame();
 update();
-
 </script>
-
 </body>
 </html>
