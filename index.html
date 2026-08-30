@@ -6,554 +6,271 @@
 <title>Cookie Empire</title>
 
 <style>
-*{
-    box-sizing:border-box;
+* {
+    box-sizing: border-box;
 }
 
-html,body{
-    width:100%;
-    height:100%;
-    margin:0;
-    overflow:hidden;
-    font-family:Arial,Helvetica,sans-serif;
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #1976d2;
+    color: white;
+    overflow: hidden;
 }
 
-body{
-    background:#071a36;
-    color:white;
+.game {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-#game{
-    width:100vw;
-    height:100vh;
-    display:grid;
-    grid-template-columns:29% 43% 28%;
-    background:linear-gradient(135deg,#061a38,#0b4f91,#082c5c);
+/* TOP */
+.top {
+    text-align: center;
+    padding: 12px 10px 6px;
+    flex-shrink: 0;
 }
 
-/* ================= COOKIE SIDE ================= */
-
-#left{
-    height:100vh;
-    text-align:center;
-    background:linear-gradient(180deg,#0b5aa5,#08366b);
-    border-right:3px solid #03152e;
-    position:relative;
+h1 {
+    margin: 0;
+    font-size: 28px;
 }
 
-#title{
-    font-size:25px;
-    font-weight:bold;
-    padding-top:13px;
-    text-shadow:2px 2px #00152e;
+#cookies {
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: 4px;
 }
 
-#subtitle{
-    font-size:11px;
-    color:#cfe8ff;
-    margin-top:2px;
+#cps {
+    font-size: 15px;
+    opacity: .9;
 }
 
-#cookieCount{
-    margin-top:13px;
-    font-size:25px;
-    font-weight:bold;
-    text-shadow:2px 2px #00152e;
+/* MAIN AREA */
+.main {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 1fr 330px;
+    gap: 15px;
+    padding: 10px 15px 15px;
 }
 
-#perSecond{
-    color:#a9ddff;
-    font-size:13px;
-    margin-top:3px;
+/* COOKIE AREA */
+.cookie-area {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, .12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#cookieArea{
-    position:absolute;
-    left:0;
-    right:0;
-    top:125px;
-    bottom:0;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
+/* MINI COOKIES */
+.mini-cookie {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #b86f32;
+    border: 3px solid #75401c;
+    box-shadow: inset 4px 4px rgba(255,255,255,.12);
+    pointer-events: none;
+    animation: cookieMove linear infinite;
+    opacity: .7;
 }
 
-#cookie{
-    width:min(280px,80%);
-    aspect-ratio:1;
-    border-radius:50%;
-    cursor:pointer;
+.mini-cookie::before,
+.mini-cookie::after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #542b13;
+    border-radius: 50%;
+}
 
-    background:
-        radial-gradient(circle at 25% 23%,#6e3916 0 4%,transparent 4.7%),
-        radial-gradient(circle at 62% 18%,#55270f 0 3%,transparent 3.8%),
-        radial-gradient(circle at 78% 35%,#733b18 0 4%,transparent 4.7%),
-        radial-gradient(circle at 38% 43%,#54270f 0 3%,transparent 3.8%),
-        radial-gradient(circle at 68% 58%,#54270f 0 4%,transparent 4.7%),
-        radial-gradient(circle at 23% 68%,#713715 0 3.5%,transparent 4.2%),
-        radial-gradient(circle at 51% 78%,#55270f 0 4%,transparent 4.7%),
-        radial-gradient(circle at 83% 76%,#733b18 0 3%,transparent 3.8%),
-        #c9782d;
-
-    border:10px solid #8a491d;
-
+.mini-cookie::before {
+    top: 8px;
+    left: 8px;
     box-shadow:
-        inset 0 0 25px rgba(70,30,5,.8),
-        0 10px 25px rgba(0,0,0,.7);
-
-    transition:.06s;
+        13px 4px #542b13,
+        7px 14px #542b13,
+        19px 18px #542b13;
 }
 
-#cookie:hover{
-    filter:brightness(1.1);
+.mini-cookie::after {
+    top: 20px;
+    left: 14px;
+    box-shadow: -7px -2px #542b13;
 }
 
-#cookie:active{
-    transform:scale(.93);
+@keyframes cookieMove {
+    from {
+        transform: translateX(-100px) rotate(0deg);
+    }
+    to {
+        transform: translateX(calc(100vw + 100px)) rotate(360deg);
+    }
 }
 
-/* ================= BUILDINGS ================= */
-
-#middle{
-    height:100vh;
-    overflow:hidden;
-    background:#082e5c;
-    border-right:3px solid #03152e;
-}
-
-.panelHeader{
-    height:48px;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:0 10px;
-
-    background:linear-gradient(#1267ad,#084477);
-
-    border-bottom:2px solid #031b38;
-
-    font-size:15px;
-    font-weight:bold;
-}
-
-#buyMode{
-    display:flex;
-    gap:3px;
-}
-
-#buyMode button{
-    border:1px solid #6db8ed;
-    background:#083665;
-    color:white;
-    padding:4px 7px;
-    cursor:pointer;
-    border-radius:3px;
-    font-size:11px;
-}
-
-#buyMode button.active{
-    background:#2196e0;
-}
-
-/*
-   ONLY THIS SECTION SCROLLS
-*/
-
-#buildings{
-    height:calc(100vh - 48px);
-
-    padding:7px;
-
-    overflow-y:auto;
-    overflow-x:hidden;
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,minmax(0,1fr));
-
-    grid-auto-rows:minmax(105px,1fr);
-
-    gap:7px;
-
-    align-content:start;
-}
-
-/* Scrollbar */
-
-#buildings::-webkit-scrollbar{
-    width:10px;
-}
-
-#buildings::-webkit-scrollbar-track{
-    background:#05254a;
-}
-
-#buildings::-webkit-scrollbar-thumb{
-    background:#1c72ae;
-    border-radius:5px;
-}
-
-#buildings::-webkit-scrollbar-thumb:hover{
-    background:#2b91d2;
-}
-
-/* SQUARE BUILDING CARDS */
-
-.building{
-    aspect-ratio:1 / 1;
-
-    min-width:0;
-
-    display:flex;
-    flex-direction:column;
-
-    align-items:center;
-    justify-content:space-between;
-
-    text-align:center;
-
-    padding:7px;
-
+/* BIG COOKIE */
+.big-cookie {
+    width: min(310px, 45vw);
+    height: min(310px, 45vw);
+    max-width: 310px;
+    max-height: 310px;
+    min-width: 180px;
+    min-height: 180px;
+    border-radius: 50%;
     background:
-        linear-gradient(
-            145deg,
-            #105384,
-            #082e54
-        );
-
-    border:2px solid #1c70a7;
-
-    border-radius:6px;
-
-    cursor:pointer;
-
-    overflow:hidden;
-
-    transition:
-        transform .08s,
-        background .08s,
-        border-color .08s;
+        radial-gradient(circle at 25% 25%, #d8944d 0 4%, transparent 5%),
+        radial-gradient(circle at 70% 30%, #6f3d1c 0 2.5%, transparent 3%),
+        radial-gradient(circle at 40% 65%, #6f3d1c 0 3%, transparent 3.5%),
+        radial-gradient(circle at 72% 72%, #6f3d1c 0 2.5%, transparent 3%),
+        radial-gradient(circle at 30% 80%, #6f3d1c 0 2%, transparent 2.5%),
+        #b86f32;
+    border: 10px solid #753e1b;
+    box-shadow:
+        inset 10px 10px 0 rgba(255,255,255,.08),
+        inset -12px -12px 0 rgba(0,0,0,.15),
+        0 12px 25px rgba(0,0,0,.25);
+    cursor: pointer;
+    position: relative;
+    z-index: 5;
+    transition: transform .08s;
 }
 
-.building:hover{
-    background:
-        linear-gradient(
-            145deg,
-            #176b9f,
-            #0b3f6d
-        );
-
-    border-color:#48a7df;
-
-    transform:scale(1.02);
+.big-cookie:active {
+    transform: scale(.94);
 }
 
-.building:active{
-    transform:scale(.97);
+.big-cookie:hover {
+    transform: scale(1.025);
 }
 
-.building.locked{
-    opacity:.48;
+/* BUILDINGS */
+.buildings {
+    background: rgba(0,0,0,.12);
+    border-radius: 18px;
+    padding: 10px;
+    min-height: 0;
+    overflow-y: auto;
 }
 
-.buildingIcon{
-    width:100%;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:28px;
-
-    padding-top:2px;
+.buildings h2 {
+    text-align: center;
+    margin: 4px 0 10px;
+    font-size: 21px;
 }
 
-.buildingInfo{
-    width:100%;
-    min-width:0;
+.building {
+    width: 100%;
+    aspect-ratio: 1 / .42;
+    min-height: 90px;
+    margin-bottom: 9px;
+    padding: 10px;
+    border: 2px solid rgba(255,255,255,.35);
+    border-radius: 12px;
+    background: rgba(255,255,255,.12);
+    display: grid;
+    grid-template-columns: 65px 1fr auto;
+    align-items: center;
+    gap: 9px;
 }
 
-.buildingName{
-    font-size:11px;
-    font-weight:bold;
-
-    line-height:1.05;
-
-    white-space:normal;
-
-    overflow:hidden;
+.building-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
 }
 
-.buildingDesc{
-    font-size:8px;
-    color:#b8ddf5;
-
-    margin-top:3px;
+.building-name {
+    font-weight: bold;
+    font-size: 16px;
 }
 
-.buildingPrice{
-    color:#ffe082;
-
-    font-size:9px;
-
-    margin-top:4px;
-
-    white-space:nowrap;
+.building-info {
+    font-size: 12px;
+    opacity: .85;
+    margin-top: 3px;
 }
 
-.buildingOwned{
-    width:100%;
-
-    font-size:17px;
-
-    font-weight:bold;
-
-    color:#a9dcff;
-
-    padding-bottom:2px;
+.buy {
+    border: none;
+    border-radius: 9px;
+    padding: 9px 10px;
+    background: #fff;
+    color: #175b9e;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-/* ================= UPGRADES ================= */
-
-#right{
-    height:100vh;
-    overflow:hidden;
-
-    background:
-        linear-gradient(
-            180deg,
-            #06315e,
-            #041d3a
-        );
+.buy:disabled {
+    opacity: .4;
+    cursor: not-allowed;
 }
 
-.upgradeHeader{
-    height:48px;
-
-    display:flex;
-    align-items:center;
-
-    padding:0 12px;
-
-    background:
-        linear-gradient(
-            #1267ad,
-            #084477
-        );
-
-    border-bottom:2px solid #031b38;
-
-    font-size:15px;
-    font-weight:bold;
+/* FLOATING +1 */
+.float {
+    position: absolute;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    pointer-events: none;
+    z-index: 10;
+    animation: floatUp .8s ease-out forwards;
 }
 
-#upgradesArea{
-    height:calc(100vh - 48px);
-
-    padding:8px;
-
-    overflow:hidden;
+@keyframes floatUp {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-80px) scale(1.25);
+    }
 }
 
-#upgradeGrid{
-    height:100%;
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,minmax(0,1fr));
-
-    grid-auto-rows:75px;
-
-    gap:6px;
-}
-
-.upgrade{
-    background:#0b4778;
-
-    border:1px solid #328bc3;
-
-    border-radius:5px;
-
-    padding:6px;
-
-    cursor:pointer;
-
-    overflow:hidden;
-}
-
-.upgrade:hover{
-    background:#0e5b96;
-}
-
-.upgrade.unaffordable{
-    opacity:.4;
-}
-
-.upgradeIcon{
-    font-size:22px;
-}
-
-.upgradeName{
-    font-size:10px;
-    font-weight:bold;
-
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.upgradePrice{
-    color:#ffe082;
-    font-size:9px;
-}
-
-/* ================= GOLDEN COOKIE ================= */
-
-#goldenCookie{
-    position:fixed;
-
-    display:none;
-
-    width:75px;
-    height:75px;
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            #fff7a8,
-            #ffd21c 55%,
-            #f19b00
-        );
-
-    border:4px solid white;
-
-    box-shadow:0 0 30px #ffc400;
-
-    cursor:pointer;
-
-    z-index:100;
-
-    animation:goldSpin 1s infinite alternate;
-}
-
-@keyframes goldSpin{
-
-    from{
-        transform:scale(.9) rotate(-8deg);
+/* MOBILE */
+@media (max-width: 700px) {
+    .main {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 42%;
     }
 
-    to{
-        transform:scale(1.08) rotate(8deg);
+    .cookie-area {
+        min-height: 0;
     }
 
-}
-
-/* ================= CLICK NUMBERS ================= */
-
-.clickNumber{
-    position:fixed;
-
-    pointer-events:none;
-
-    font-size:20px;
-
-    font-weight:bold;
-
-    color:white;
-
-    text-shadow:1px 1px #000;
-
-    animation:floatUp 1s forwards;
-
-    z-index:200;
-}
-
-@keyframes floatUp{
-
-    to{
-        transform:translateY(-80px);
-        opacity:0;
+    .buildings {
+        min-height: 0;
     }
 
-}
-
-/* ================= NOTIFICATION ================= */
-
-#notification{
-    position:fixed;
-
-    bottom:15px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    background:#06182d;
-
-    border:2px solid #4fa5dd;
-
-    box-shadow:0 4px 15px #000;
-
-    padding:10px 20px;
-
-    display:none;
-
-    z-index:300;
-
-    font-size:13px;
-}
-
-/* ================= SMALL SCREENS ================= */
-
-@media(max-width:850px){
-
-    #game{
-        grid-template-columns:28% 45% 27%;
+    .big-cookie {
+        width: 210px;
+        height: 210px;
+        min-width: 210px;
+        min-height: 210px;
     }
 
-    #title{
-        font-size:18px;
+    .building {
+        min-height: 75px;
+        grid-template-columns: 50px 1fr auto;
     }
 
-    #cookieCount{
-        font-size:18px;
-    }
-
-    #cookie{
-        width:80%;
-    }
-
-    #buildings{
-        grid-template-columns:
-            repeat(2,minmax(0,1fr));
-
-        grid-auto-rows:minmax(100px,1fr);
-    }
-
-    .buildingIcon{
-        font-size:22px;
-    }
-
-    .buildingName{
-        font-size:9px;
-    }
-
-    .buildingDesc{
-        font-size:7px;
-    }
-
-    .buildingPrice{
-        font-size:8px;
-    }
-
-    .buildingOwned{
-        font-size:14px;
+    .building-icon {
+        width: 46px;
+        height: 46px;
+        font-size: 25px;
     }
 }
 </style>
@@ -561,1003 +278,220 @@ body{
 
 <body>
 
-<div id="game">
+<div class="game">
 
-    <!-- COOKIE -->
+    <div class="top">
+        <h1>🍪 Cookie Empire</h1>
+        <div id="cookies">0 cookies</div>
+        <div id="cps">0 cookies per second</div>
+    </div>
 
-    <section id="left">
+    <div class="main">
 
-        <div id="title">
-            🍪 COOKIE EMPIRE
-        </div>
+        <div class="cookie-area" id="cookieArea">
 
-        <div id="subtitle">
-            Bake cookies. Buy stuff. Get rich.
-        </div>
+            <!-- Mini cookies -->
+            <div class="mini-cookie" style="top:8%; animation-duration:12s; animation-delay:-5s;"></div>
+            <div class="mini-cookie" style="top:23%; animation-duration:16s; animation-delay:-11s; transform:scale(.7);"></div>
+            <div class="mini-cookie" style="top:40%; animation-duration:13s; animation-delay:-2s; transform:scale(.55);"></div>
+            <div class="mini-cookie" style="top:58%; animation-duration:18s; animation-delay:-14s; transform:scale(.8);"></div>
+            <div class="mini-cookie" style="top:76%; animation-duration:14s; animation-delay:-8s; transform:scale(.6);"></div>
+            <div class="mini-cookie" style="top:88%; animation-duration:20s; animation-delay:-17s; transform:scale(.75);"></div>
 
-        <div id="cookieCount">
-            0 cookies
-        </div>
-
-        <div id="perSecond">
-            per second: 0
-        </div>
-
-        <div id="cookieArea">
-            <div id="cookie"></div>
-        </div>
-
-    </section>
-
-
-    <!-- BUILDINGS -->
-
-    <section id="middle">
-
-        <div class="panelHeader">
-
-            <span>BUILDINGS</span>
-
-            <div id="buyMode">
-
-                <button
-                    data-mode="1"
-                    class="active">
-                    1
-                </button>
-
-                <button data-mode="10">
-                    10
-                </button>
-
-                <button data-mode="100">
-                    100
-                </button>
-
-            </div>
+            <button class="big-cookie" id="bigCookie" aria-label="Click cookie"></button>
 
         </div>
 
-        <div id="buildings"></div>
-
-    </section>
-
-
-    <!-- UPGRADES -->
-
-    <section id="right">
-
-        <div class="upgradeHeader">
-            🛠️ UPGRADES
+        <div class="buildings">
+            <h2>🏢 Buildings</h2>
+            <div id="buildingList"></div>
         </div>
 
-        <div id="upgradesArea">
-
-            <div id="upgradeGrid"></div>
-
-        </div>
-
-    </section>
-
+    </div>
 </div>
-
-
-<div id="goldenCookie">
-    🍪
-</div>
-
-<div id="notification"></div>
-
 
 <script>
-
-/* ================= GAME STATE ================= */
-
 let cookies = 0;
-let totalCookies = 0;
-let clickPower = 1;
-let buyMode = 1;
-let goldenCookies = 0;
-let frenzyUntil = 0;
+let buildings = [];
 
-
-/* ================= BUILDINGS ================= */
-
-let buildings = [
-
+const buildingTypes = [
     {
-        name:"Cursor",
-        icon:"👆",
-        base:15,
-        cps:0.1,
-        owned:0
+        name: "Cursor",
+        icon: "👆",
+        baseCost: 15,
+        cps: 0.1
     },
-
     {
-        name:"Grandma",
-        icon:"👵",
-        base:100,
-        cps:1,
-        owned:0
+        name: "Grandma",
+        icon: "👵",
+        baseCost: 100,
+        cps: 1
     },
-
     {
-        name:"Farm",
-        icon:"🌾",
-        base:1100,
-        cps:8,
-        owned:0
+        name: "Farm",
+        icon: "🌾",
+        baseCost: 500,
+        cps: 5
     },
-
     {
-        name:"Mine",
-        icon:"⛏️",
-        base:12000,
-        cps:47,
-        owned:0
+        name: "Factory",
+        icon: "🏭",
+        baseCost: 3000,
+        cps: 25
     },
-
     {
-        name:"Factory",
-        icon:"🏭",
-        base:130000,
-        cps:260,
-        owned:0
+        name: "Mine",
+        icon: "⛏️",
+        baseCost: 10000,
+        cps: 100
     },
-
     {
-        name:"Bank",
-        icon:"🏦",
-        base:1400000,
-        cps:1400,
-        owned:0
+        name: "Bank",
+        icon: "🏦",
+        baseCost: 50000,
+        cps: 500
     },
-
     {
-        name:"Temple",
-        icon:"⛪",
-        base:20000000,
-        cps:7800,
-        owned:0
+        name: "Temple",
+        icon: "🛕",
+        baseCost: 250000,
+        cps: 2500
     },
-
     {
-        name:"Wizard Tower",
-        icon:"🧙",
-        base:330000000,
-        cps:44000,
-        owned:0
-    },
-
-    {
-        name:"Shipment",
-        icon:"🚀",
-        base:5100000000,
-        cps:260000,
-        owned:0
-    },
-
-    {
-        name:"Alchemy Lab",
-        icon:"⚗️",
-        base:75000000000,
-        cps:1600000,
-        owned:0
-    },
-
-    {
-        name:"Portal",
-        icon:"🌀",
-        base:1000000000000,
-        cps:10000000,
-        owned:0
-    },
-
-    {
-        name:"Time Machine",
-        icon:"⏰",
-        base:14000000000000,
-        cps:65000000,
-        owned:0
-    },
-
-    {
-        name:"Antimatter Condenser",
-        icon:"⚛️",
-        base:170000000000000,
-        cps:430000000,
-        owned:0
-    },
-
-    {
-        name:"Prism",
-        icon:"🌈",
-        base:2100000000000000,
-        cps:2900000000,
-        owned:0
-    },
-
-    {
-        name:"Chancemaker",
-        icon:"🎰",
-        base:26000000000000000,
-        cps:19000000000,
-        owned:0
-    },
-
-    {
-        name:"Fractal Engine",
-        icon:"🔷",
-        base:310000000000000000,
-        cps:120000000000,
-        owned:0
-    },
-
-    {
-        name:"Javascript Console",
-        icon:"💻",
-        base:71000000000000000000,
-        cps:720000000000,
-        owned:0
-    },
-
-    {
-        name:"Idleverse",
-        icon:"🌌",
-        base:12000000000000000000000,
-        cps:4500000000000,
-        owned:0
-    },
-
-    {
-        name:"Cortex Baker",
-        icon:"🧠",
-        base:1900000000000000000000000,
-        cps:27000000000000,
-        owned:0
-    },
-
-    {
-        name:"You",
-        icon:"👤",
-        base:540000000000000000000000000,
-        cps:160000000000000,
-        owned:0
+        name: "Wizard Tower",
+        icon: "🧙",
+        baseCost: 1000000,
+        cps: 10000
     }
-
 ];
 
+buildingTypes.forEach(() => buildings.push(0));
 
-/* ================= UPGRADES ================= */
+const cookieDisplay = document.getElementById("cookies");
+const cpsDisplay = document.getElementById("cps");
+const bigCookie = document.getElementById("bigCookie");
+const cookieArea = document.getElementById("cookieArea");
+const buildingList = document.getElementById("buildingList");
 
-let upgrades = [
+function formatNumber(number) {
+    if (number < 1000) return Math.floor(number).toString();
 
-    {
-        name:"Better Fingers",
-        icon:"☝️",
-        price:100,
-        type:"click",
-        mult:2
-    },
+    const units = ["K", "M", "B", "T", "Qa", "Qi"];
+    let unit = -1;
 
-    {
-        name:"Strong Fingers",
-        icon:"💪",
-        price:1000,
-        type:"click",
-        mult:2
-    },
-
-    {
-        name:"Golden Dough",
-        icon:"🟡",
-        price:10000,
-        type:"click",
-        mult:2
-    },
-
-    {
-        name:"Reinforced Cursor",
-        icon:"🖱️",
-        price:500,
-        type:"building",
-        building:0,
-        mult:2
-    },
-
-    {
-        name:"Grandma's Recipe",
-        icon:"📖",
-        price:3000,
-        type:"building",
-        building:1,
-        mult:2
-    },
-
-    {
-        name:"Farm Science",
-        icon:"🌱",
-        price:15000,
-        type:"building",
-        building:2,
-        mult:2
-    },
-
-    {
-        name:"Better Pickaxes",
-        icon:"⛏️",
-        price:75000,
-        type:"building",
-        building:3,
-        mult:2
-    },
-
-    {
-        name:"Factory Automation",
-        icon:"⚙️",
-        price:300000,
-        type:"building",
-        building:4,
-        mult:2
-    },
-
-    {
-        name:"Banking System",
-        icon:"💰",
-        price:1500000,
-        type:"building",
-        building:5,
-        mult:2
-    },
-
-    {
-        name:"Temple Blessing",
-        icon:"✨",
-        price:7000000,
-        type:"building",
-        building:6,
-        mult:2
-    },
-
-    {
-        name:"Magic Research",
-        icon:"🔮",
-        price:30000000,
-        type:"building",
-        building:7,
-        mult:2
-    },
-
-    {
-        name:"Rocket Engineering",
-        icon:"🚀",
-        price:150000000,
-        type:"building",
-        building:8,
-        mult:2
-    },
-
-    {
-        name:"Advanced Alchemy",
-        icon:"🧪",
-        price:800000000,
-        type:"building",
-        building:9,
-        mult:2
-    },
-
-    {
-        name:"Portal Control",
-        icon:"🌀",
-        price:4000000000,
-        type:"building",
-        building:10,
-        mult:2
-    },
-
-    {
-        name:"Time Mastery",
-        icon:"⌛",
-        price:20000000000,
-        type:"building",
-        building:11,
-        mult:2
+    while (number >= 1000 && unit < units.length - 1) {
+        number /= 1000;
+        unit++;
     }
 
-];
+    return number.toFixed(number < 10 ? 1 : 0) + units[unit];
+}
 
-let boughtUpgrades = [];
-
-
-/* ================= NUMBER FORMAT ================= */
-
-function fmt(n){
-
-    if(!isFinite(n))
-        return "∞";
-
-    if(n<1000)
-        return Math.floor(n).toLocaleString();
-
-    const units=[
-        "K","M","B","T","Qa",
-        "Qi","Sx","Sp","Oc","No","Dc"
-    ];
-
-    let tier=Math.floor(
-        Math.log10(n)/3
+function getCost(index) {
+    return Math.floor(
+        buildingTypes[index].baseCost *
+        Math.pow(1.15, buildings[index])
     );
-
-    if(tier>units.length)
-        return n.toExponential(2);
-
-    return(
-        n/Math.pow(1000,tier)
-    ).toFixed(2)+units[tier-1];
 }
 
+function getCPS() {
+    let total = 0;
 
-/* ================= MULTIPLIERS ================= */
-
-function buildingMultiplier(index){
-
-    let mult=1;
-
-    upgrades.forEach((u,i)=>{
-
-        if(
-            u.type==="building" &&
-            u.building===index &&
-            boughtUpgrades.includes(i)
-        ){
-
-            mult*=u.mult;
-
-        }
-
+    buildingTypes.forEach((building, index) => {
+        total += building.cps * buildings[index];
     });
-
-    return mult;
-}
-
-
-/* ================= CPS ================= */
-
-function getCps(){
-
-    let cps=0;
-
-    buildings.forEach((b,i)=>{
-
-        cps+=
-            b.owned*
-            b.cps*
-            buildingMultiplier(i);
-
-    });
-
-    if(Date.now()<frenzyUntil)
-        cps*=7;
-
-    return cps;
-}
-
-
-/* ================= COOKIE ================= */
-
-document.getElementById(
-    "cookie"
-).onclick=function(e){
-
-    let amount=clickPower;
-
-    if(Date.now()<frenzyUntil)
-        amount*=7;
-
-    cookies+=amount;
-    totalCookies+=amount;
-
-    floatingNumber(
-        "+"+fmt(amount),
-        e.clientX,
-        e.clientY
-    );
-
-    update();
-};
-
-
-/* ================= FLOATING NUMBER ================= */
-
-function floatingNumber(text,x,y){
-
-    let el=document.createElement("div");
-
-    el.className="clickNumber";
-
-    el.textContent=text;
-
-    el.style.left=x+"px";
-    el.style.top=y+"px";
-
-    document.body.appendChild(el);
-
-    setTimeout(()=>{
-        el.remove();
-    },1000);
-}
-
-
-/* ================= BULK COST ================= */
-
-function bulkCost(index,amount){
-
-    let total=0;
-
-    for(let i=0;i<amount;i++){
-
-        total+=Math.floor(
-            buildings[index].base*
-            Math.pow(
-                1.15,
-                buildings[index].owned+i
-            )
-        );
-
-    }
 
     return total;
 }
 
-
-/* ================= BUY BUILDING ================= */
-
-function buyBuilding(index){
-
-    let amount=buyMode;
-
-    let cost=bulkCost(
-        index,
-        amount
-    );
-
-    if(cookies<cost)
-        return;
-
-    cookies-=cost;
-
-    buildings[index].owned+=amount;
-
-    showNotification(
-        "+"+
-        amount+
-        " "+
-        buildings[index].name
-    );
-
-    update();
-}
-
-
-/* ================= RENDER BUILDINGS ================= */
-
-function renderBuildings(){
-
-    let container=
-        document.getElementById(
-            "buildings"
-        );
-
-    container.innerHTML="";
-
-    buildings.forEach((b,i)=>{
-
-        let cost=
-            bulkCost(
-                i,
-                buyMode
-            );
-
-        let div=
-            document.createElement("div");
-
-        div.className="building";
-
-        if(cookies<cost)
-            div.classList.add("locked");
-
-        div.innerHTML=`
-
-            <div class="buildingIcon">
-                ${b.icon}
-            </div>
-
-            <div class="buildingInfo">
-
-                <div class="buildingName">
-                    ${b.name}
-                </div>
-
-                <div class="buildingDesc">
-                    ${fmt(
-                        b.cps*
-                        buildingMultiplier(i)
-                    )}/sec
-                </div>
-
-                <div class="buildingPrice">
-                    🍪 ${fmt(cost)}
-                </div>
-
-            </div>
-
-            <div class="buildingOwned">
-                ${b.owned}
-            </div>
-
-        `;
-
-        div.onclick=
-            ()=>buyBuilding(i);
-
-        container.appendChild(div);
-
-    });
-}
-
-
-/* ================= UPGRADES ================= */
-
-function buyUpgrade(index){
-
-    if(boughtUpgrades.includes(index))
-        return;
-
-    let u=upgrades[index];
-
-    if(cookies<u.price)
-        return;
-
-    cookies-=u.price;
-
-    boughtUpgrades.push(index);
-
-    if(u.type==="click")
-        clickPower*=u.mult;
-
-    showNotification(
-        "Upgrade bought: "+
-        u.name
-    );
-
-    update();
-}
-
-
-function renderUpgrades(){
-
-    let grid=
-        document.getElementById(
-            "upgradeGrid"
-        );
-
-    grid.innerHTML="";
-
-    upgrades.forEach((u,i)=>{
-
-        if(boughtUpgrades.includes(i))
-            return;
-
-        let div=
-            document.createElement("div");
-
-        div.className="upgrade";
-
-        if(cookies<u.price)
-            div.classList.add(
-                "unaffordable"
-            );
-
-        div.innerHTML=`
-
-            <div class="upgradeIcon">
-                ${u.icon}
-            </div>
-
-            <div class="upgradeName">
-                ${u.name}
-            </div>
-
-            <div class="upgradePrice">
-                🍪 ${fmt(u.price)}
-            </div>
-
-        `;
-
-        div.onclick=
-            ()=>buyUpgrade(i);
-
-        grid.appendChild(div);
-
-    });
-}
-
-
-/* ================= GOLDEN COOKIE ================= */
-
-function spawnGolden(){
-
-    let g=
-        document.getElementById(
-            "goldenCookie"
-        );
-
-    g.style.display="block";
-
-    g.style.left=
-        Math.max(
-            20,
-            Math.random()*
-            (innerWidth-110)
-        )+"px";
-
-    g.style.top=
-        Math.max(
-            60,
-            Math.random()*
-            (innerHeight-130)
-        )+"px";
-
-    setTimeout(()=>{
-        g.style.display="none";
-    },12000);
-}
-
-
-document.getElementById(
-    "goldenCookie"
-).onclick=()=>{
-
-    let g=
-        document.getElementById(
-            "goldenCookie"
-        );
-
-    g.style.display="none";
-
-    goldenCookies++;
-
-    if(Math.random()<.5){
-
-        let reward=
-            Math.max(
-                cookies*.15,
-                getCps()*60
-            );
-
-        cookies+=reward;
-        totalCookies+=reward;
-
-        showNotification(
-            "Lucky! +"+
-            fmt(reward)+
-            " cookies"
-        );
-
-    }else{
-
-        frenzyUntil=
-            Date.now()+77000;
-
-        showNotification(
-            "COOKIE FRENZY! 7× production!"
-        );
-
-    }
-
-    update();
-};
-
-
-setInterval(()=>{
-
-    if(Math.random()<.35)
-        spawnGolden();
-
-},30000);
-
-
-/* ================= BUY MODE ================= */
-
-document.querySelectorAll(
-    "#buyMode button"
-).forEach(button=>{
-
-    button.onclick=()=>{
-
-        document.querySelectorAll(
-            "#buyMode button"
-        ).forEach(x=>
-            x.classList.remove(
-                "active"
-            )
-        );
-
-        button.classList.add(
-            "active"
-        );
-
-        buyMode=
-            Number(
-                button.dataset.mode
-            );
-
-        renderBuildings();
-
-    };
-
-});
-
-
-/* ================= NOTIFICATION ================= */
-
-let notificationTimer;
-
-function showNotification(text){
-
-    let n=
-        document.getElementById(
-            "notification"
-        );
-
-    n.textContent=text;
-
-    n.style.display="block";
-
-    clearTimeout(
-        notificationTimer
-    );
-
-    notificationTimer=
-        setTimeout(()=>{
-            n.style.display="none";
-        },2500);
-}
-
-
-/* ================= SAVE ================= */
-
-function saveGame(){
-
-    localStorage.setItem(
-        "cookieEmpire",
-
-        JSON.stringify({
-
-            cookies,
-            totalCookies,
-            clickPower,
-            goldenCookies,
-
-            buildings,
-            boughtUpgrades
-
-        })
-    );
-}
-
-
-/* ================= LOAD ================= */
-
-function loadGame(){
-
-    let save=
-        localStorage.getItem(
-            "cookieEmpire"
-        );
-
-    if(!save)
-        return;
-
-    try{
-
-        let data=
-            JSON.parse(save);
-
-        cookies=data.cookies||0;
-        totalCookies=data.totalCookies||0;
-        clickPower=data.clickPower||1;
-        goldenCookies=data.goldenCookies||0;
-
-        if(data.buildings){
-
-            data.buildings.forEach(
-                (oldBuilding,i)=>{
-
-                    if(
-                        buildings[i] &&
-                        typeof oldBuilding.owned
-                        ==="number"
-                    ){
-
-                        buildings[i].owned=
-                            oldBuilding.owned;
-
-                    }
-
-                }
-            );
-
-        }
-
-        boughtUpgrades=
-            data.boughtUpgrades||[];
-
-    }catch(e){
-
-        console.log(
-            "Save could not be loaded."
-        );
-
-    }
-}
-
-
-/* ================= UPDATE ================= */
-
-function update(){
-
-    let cps=getCps();
-
-    document.getElementById(
-        "cookieCount"
-    ).textContent=
-        fmt(cookies)+
-        " cookies";
-
-    document.getElementById(
-        "perSecond"
-    ).textContent=
-        "per second: "+
-        fmt(cps);
+function update() {
+    cookieDisplay.textContent =
+        formatNumber(cookies) + " cookies";
+
+    cpsDisplay.textContent =
+        formatNumber(getCPS()) + " cookies per second";
 
     renderBuildings();
-    renderUpgrades();
-
-    saveGame();
 }
 
+function renderBuildings() {
+    buildingList.innerHTML = "";
 
-/* ================= PRODUCTION ================= */
+    buildingTypes.forEach((building, index) => {
+        const cost = getCost(index);
 
-let lastTime=Date.now();
+        const card = document.createElement("div");
+        card.className = "building";
 
-setInterval(()=>{
+        card.innerHTML = `
+            <div class="building-icon">${building.icon}</div>
 
-    let now=Date.now();
+            <div>
+                <div class="building-name">
+                    ${building.name} × ${buildings[index]}
+                </div>
 
-    let elapsed=
-        (now-lastTime)/1000;
+                <div class="building-info">
+                    +${building.cps} cookies/sec
+                </div>
+            </div>
 
-    lastTime=now;
+            <button class="buy" ${cookies < cost ? "disabled" : ""}>
+                🍪 ${formatNumber(cost)}
+            </button>
+        `;
 
-    let amount=
-        getCps()*elapsed;
+        card.querySelector(".buy").addEventListener("click", () => {
+            if (cookies >= cost) {
+                cookies -= cost;
+                buildings[index]++;
+                update();
+            }
+        });
 
-    cookies+=amount;
-    totalCookies+=amount;
+        buildingList.appendChild(card);
+    });
+}
 
+/* CLICK COOKIE */
+bigCookie.addEventListener("click", (event) => {
+    cookies++;
+
+    createFloat(event.clientX, event.clientY, "+1");
     update();
+});
 
-},100);
+/* FLOATING NUMBER */
+function createFloat(x, y, text) {
+    const float = document.createElement("div");
 
+    float.className = "float";
+    float.textContent = text;
 
-/* ================= START ================= */
+    const rect = cookieArea.getBoundingClientRect();
 
-loadGame();
+    float.style.left = (x - rect.left) + "px";
+    float.style.top = (y - rect.top) + "px";
 
+    cookieArea.appendChild(float);
+
+    setTimeout(() => {
+        float.remove();
+    }, 800);
+}
+
+/* AUTOMATIC COOKIES */
+setInterval(() => {
+    const cps = getCPS();
+
+    if (cps > 0) {
+        cookies += cps / 10;
+        update();
+    }
+}, 100);
+
+/* START */
 update();
-
 </script>
 
 </body>
