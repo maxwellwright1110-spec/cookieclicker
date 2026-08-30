@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cookie Empire</title>
 
 <style>
@@ -23,39 +23,21 @@ body{
     color:white;
 }
 
-/* ================= MAIN LAYOUT ================= */
-
 #game{
     width:100vw;
     height:100vh;
-
     display:grid;
     grid-template-columns:29% 43% 28%;
-
-    background:
-        linear-gradient(
-            135deg,
-            #061a38,
-            #0b4f91,
-            #082c5c
-        );
+    background:linear-gradient(135deg,#061a38,#0b4f91,#082c5c);
 }
 
-/* ================= LEFT ================= */
+/* LEFT */
 
 #left{
     height:100vh;
     text-align:center;
-
-    background:
-        linear-gradient(
-            180deg,
-            #0b5aa5,
-            #08366b
-        );
-
+    background:linear-gradient(180deg,#0b5aa5,#08366b);
     border-right:3px solid #03152e;
-
     position:relative;
 }
 
@@ -91,7 +73,6 @@ body{
     right:0;
     top:125px;
     bottom:0;
-
     display:flex;
     align-items:center;
     justify-content:center;
@@ -100,9 +81,7 @@ body{
 #cookie{
     width:min(280px,80%);
     aspect-ratio:1;
-
     border-radius:50%;
-
     cursor:pointer;
 
     background:
@@ -133,32 +112,23 @@ body{
     transform:scale(.93);
 }
 
-/* ================= CENTER ================= */
+/* CENTER */
 
 #middle{
     height:100vh;
     overflow:hidden;
-
     background:#082e5c;
-
     border-right:3px solid #03152e;
 }
 
 .panelHeader{
     height:48px;
-
     display:flex;
     align-items:center;
     justify-content:space-between;
-
     padding:0 10px;
 
-    background:
-        linear-gradient(
-            #1267ad,
-            #084477
-        );
-
+    background:linear-gradient(#1267ad,#084477);
     border-bottom:2px solid #031b38;
 
     font-size:15px;
@@ -172,17 +142,11 @@ body{
 
 #buyMode button{
     border:1px solid #6db8ed;
-
     background:#083665;
-
     color:white;
-
     padding:4px 7px;
-
     cursor:pointer;
-
     border-radius:3px;
-
     font-size:11px;
 }
 
@@ -206,27 +170,16 @@ body{
     display:flex;
     align-items:center;
 
-    background:
-        linear-gradient(
-            90deg,
-            #0c477d,
-            #09365f
-        );
+    background:linear-gradient(90deg,#0c477d,#09365f);
 
     border:1px solid #1b6ba5;
 
     cursor:pointer;
-
     overflow:hidden;
 }
 
 .building:hover{
-    background:
-        linear-gradient(
-            90deg,
-            #12609b,
-            #0c4778
-        );
+    background:linear-gradient(90deg,#12609b,#0c4778);
 }
 
 .building.locked{
@@ -236,7 +189,6 @@ body{
 .buildingIcon{
     width:42px;
     min-width:42px;
-
     height:100%;
 
     display:flex;
@@ -280,83 +232,59 @@ body{
     text-align:center;
 
     font-size:18px;
-
     font-weight:bold;
 
     color:#a9dcff;
 }
 
-/* ================= RIGHT ================= */
+/* RIGHT - UPGRADES ONLY */
 
 #right{
     height:100vh;
     overflow:hidden;
 
-    background:
-        linear-gradient(
-            180deg,
-            #06315e,
-            #041d3a
-        );
+    background:linear-gradient(180deg,#06315e,#041d3a);
 }
 
-.tabs{
+.upgradeHeader{
     height:48px;
+
     display:flex;
-}
+    align-items:center;
 
-.tab{
-    flex:1;
+    padding:0 12px;
 
-    border:0;
-    border-right:1px solid #062346;
+    background:linear-gradient(#1267ad,#084477);
 
-    background:#082b50;
+    border-bottom:2px solid #031b38;
 
-    color:#b9d9f2;
-
-    font-size:11px;
+    font-size:15px;
     font-weight:bold;
-
-    cursor:pointer;
 }
 
-.tab.active{
-    background:#1474b9;
-    color:white;
-}
-
-.tabContent{
+#upgradesArea{
     height:calc(100vh - 48px);
-    padding:7px;
+    padding:8px;
     overflow:hidden;
 }
-
-.hidden{
-    display:none!important;
-}
-
-/* ================= UPGRADES ================= */
 
 #upgradeGrid{
     height:100%;
 
     display:grid;
 
-    grid-template-columns:
-        repeat(3,1fr);
+    grid-template-columns:repeat(3,1fr);
 
-    grid-auto-rows:70px;
+    grid-auto-rows:75px;
 
-    gap:5px;
+    gap:6px;
 }
 
 .upgrade{
     background:#0b4778;
-
     border:1px solid #328bc3;
 
-    padding:5px;
+    padding:6px;
 
     cursor:pointer;
 
@@ -389,76 +317,7 @@ body{
     font-size:9px;
 }
 
-/* ================= ACHIEVEMENTS ================= */
-
-#achievementGrid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:5px;
-}
-
-.achievement{
-    aspect-ratio:1;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:#061b31;
-
-    border:1px solid #17496e;
-
-    font-size:24px;
-
-    filter:grayscale(1);
-    opacity:.35;
-}
-
-.achievement.unlocked{
-    filter:none;
-    opacity:1;
-    background:#0c5688;
-}
-
-/* ================= STATS ================= */
-
-.stat{
-    background:#083b67;
-
-    border:1px solid #17699d;
-
-    padding:9px;
-
-    margin-bottom:5px;
-
-    font-size:12px;
-}
-
-.stat span{
-    float:right;
-    color:#ffe082;
-}
-
-#resetButton{
-    margin-top:8px;
-
-    width:100%;
-
-    padding:9px;
-
-    background:#8a302c;
-
-    color:white;
-
-    border:1px solid #dc625a;
-
-    cursor:pointer;
-}
-
-/* ================= GOLDEN COOKIE ================= */
+/* GOLDEN COOKIE */
 
 #goldenCookie{
     position:fixed;
@@ -480,8 +339,7 @@ body{
 
     border:4px solid white;
 
-    box-shadow:
-        0 0 30px #ffc400;
+    box-shadow:0 0 30px #ffc400;
 
     cursor:pointer;
 
@@ -500,11 +358,10 @@ body{
     }
 }
 
-/* ================= CLICK NUMBERS ================= */
+/* CLICK NUMBERS */
 
 .clickNumber{
     position:fixed;
-
     pointer-events:none;
 
     font-size:20px;
@@ -512,8 +369,7 @@ body{
 
     color:white;
 
-    text-shadow:
-        1px 1px #000;
+    text-shadow:1px 1px #000;
 
     animation:floatUp 1s forwards;
 
@@ -527,7 +383,7 @@ body{
     }
 }
 
-/* ================= NOTIFICATION ================= */
+/* NOTIFICATION */
 
 #notification{
     position:fixed;
@@ -552,7 +408,7 @@ body{
     font-size:13px;
 }
 
-/* ================= SMALL SCREENS ================= */
+/* SMALL SCREENS */
 
 @media(max-width:850px){
 
@@ -599,12 +455,11 @@ body{
 </style>
 </head>
 
-
 <body>
 
 <div id="game">
 
-    <!-- ================= LEFT ================= -->
+    <!-- COOKIE -->
 
     <section id="left">
 
@@ -631,21 +486,17 @@ body{
     </section>
 
 
-    <!-- ================= MIDDLE ================= -->
+    <!-- BUILDINGS -->
 
     <section id="middle">
 
         <div class="panelHeader">
 
-            <span>
-                BUILDINGS
-            </span>
+            <span>BUILDINGS</span>
 
             <div id="buyMode">
 
-                <button
-                    data-mode="1"
-                    class="active">
+                <button data-mode="1" class="active">
                     1
                 </button>
 
@@ -666,106 +517,16 @@ body{
     </section>
 
 
-    <!-- ================= RIGHT ================= -->
+    <!-- UPGRADES -->
 
     <section id="right">
 
-        <div class="tabs">
-
-            <button
-                class="tab active"
-                data-tab="upgrades">
-                UPGRADES
-            </button>
-
-            <button
-                class="tab"
-                data-tab="achievements">
-                ACHIEVEMENTS
-            </button>
-
-            <button
-                class="tab"
-                data-tab="stats">
-                STATS
-            </button>
-
+        <div class="upgradeHeader">
+            🛠️ UPGRADES
         </div>
 
-
-        <!-- UPGRADES -->
-
-        <div
-            id="upgradesTab"
-            class="tabContent">
-
+        <div id="upgradesArea">
             <div id="upgradeGrid"></div>
-
-        </div>
-
-
-        <!-- ACHIEVEMENTS -->
-
-        <div
-            id="achievementsTab"
-            class="tabContent hidden">
-
-            <h3>
-                Achievements
-            </h3>
-
-            <div id="achievementGrid"></div>
-
-        </div>
-
-
-        <!-- STATS -->
-
-        <div
-            id="statsTab"
-            class="tabContent hidden">
-
-            <div class="stat">
-                Cookies
-                <span id="statCookies">0</span>
-            </div>
-
-            <div class="stat">
-                Cookies per second
-                <span id="statCps">0</span>
-            </div>
-
-            <div class="stat">
-                Cookies per click
-                <span id="statClick">1</span>
-            </div>
-
-            <div class="stat">
-                Buildings
-                <span id="statBuildings">0</span>
-            </div>
-
-            <div class="stat">
-                Upgrades
-                <span id="statUpgrades">0</span>
-            </div>
-
-            <div class="stat">
-                Achievements
-                <span id="statAchievements">0</span>
-            </div>
-
-            <div class="stat">
-                Golden cookies
-                <span id="statGolden">0</span>
-            </div>
-
-            <button
-                id="resetButton"
-                onclick="resetGame()">
-                RESET GAME
-            </button>
-
         </div>
 
     </section>
@@ -782,454 +543,88 @@ body{
 
 <script>
 
-/* =====================================================
-   GAME STATE
-===================================================== */
+/* ================= GAME STATE ================= */
 
 let cookies = 0;
-
 let totalCookies = 0;
-
 let clickPower = 1;
-
 let buyMode = 1;
-
 let goldenCookies = 0;
-
 let frenzyUntil = 0;
 
 
-/* =====================================================
-   YOUR 20 BUILDINGS
-===================================================== */
+/* ================= BUILDINGS ================= */
 
 let buildings = [
 
-    {
-        name:"Cursor",
-        icon:"👆",
-        base:15,
-        cps:0.1,
-        owned:0
-    },
-
-    {
-        name:"Grandma",
-        icon:"👵",
-        base:100,
-        cps:1,
-        owned:0
-    },
-
-    {
-        name:"Farm",
-        icon:"🌾",
-        base:1100,
-        cps:8,
-        owned:0
-    },
-
-    {
-        name:"Mine",
-        icon:"⛏️",
-        base:12000,
-        cps:47,
-        owned:0
-    },
-
-    {
-        name:"Factory",
-        icon:"🏭",
-        base:130000,
-        cps:260,
-        owned:0
-    },
-
-    {
-        name:"Bank",
-        icon:"🏦",
-        base:1400000,
-        cps:1400,
-        owned:0
-    },
-
-    {
-        name:"Temple",
-        icon:"⛪",
-        base:20000000,
-        cps:7800,
-        owned:0
-    },
-
-    {
-        name:"Wizard Tower",
-        icon:"🧙",
-        base:330000000,
-        cps:44000,
-        owned:0
-    },
-
-    {
-        name:"Shipment",
-        icon:"🚀",
-        base:5100000000,
-        cps:260000,
-        owned:0
-    },
-
-    {
-        name:"Alchemy Lab",
-        icon:"⚗️",
-        base:75000000000,
-        cps:1600000,
-        owned:0
-    },
-
-    {
-        name:"Portal",
-        icon:"🌀",
-        base:1000000000000,
-        cps:10000000,
-        owned:0
-    },
-
-    {
-        name:"Time Machine",
-        icon:"⏰",
-        base:14000000000000,
-        cps:65000000,
-        owned:0
-    },
-
-    {
-        name:"Antimatter Condenser",
-        icon:"⚛️",
-        base:170000000000000,
-        cps:430000000,
-        owned:0
-    },
-
-    {
-        name:"Prism",
-        icon:"🌈",
-        base:2100000000000000,
-        cps:2900000000,
-        owned:0
-    },
-
-    {
-        name:"Chancemaker",
-        icon:"🎰",
-        base:26000000000000000,
-        cps:19000000000,
-        owned:0
-    },
-
-    {
-        name:"Fractal Engine",
-        icon:"🔷",
-        base:310000000000000000,
-        cps:120000000000,
-        owned:0
-    },
-
-    {
-        name:"Javascript Console",
-        icon:"💻",
-        base:71000000000000000000,
-        cps:720000000000,
-        owned:0
-    },
-
-    {
-        name:"Idleverse",
-        icon:"🌌",
-        base:12000000000000000000000,
-        cps:4500000000000,
-        owned:0
-    },
-
-    {
-        name:"Cortex Baker",
-        icon:"🧠",
-        base:1900000000000000000000000,
-        cps:27000000000000,
-        owned:0
-    },
-
-    {
-        name:"You",
-        icon:"👤",
-        base:540000000000000000000000000,
-        cps:160000000000000,
-        owned:0
-    }
+    {name:"Cursor",icon:"👆",base:15,cps:0.1,owned:0},
+    {name:"Grandma",icon:"👵",base:100,cps:1,owned:0},
+    {name:"Farm",icon:"🌾",base:1100,cps:8,owned:0},
+    {name:"Mine",icon:"⛏️",base:12000,cps:47,owned:0},
+    {name:"Factory",icon:"🏭",base:130000,cps:260,owned:0},
+    {name:"Bank",icon:"🏦",base:1400000,cps:1400,owned:0},
+    {name:"Temple",icon:"⛪",base:20000000,cps:7800,owned:0},
+    {name:"Wizard Tower",icon:"🧙",base:330000000,cps:44000,owned:0},
+    {name:"Shipment",icon:"🚀",base:5100000000,cps:260000,owned:0},
+    {name:"Alchemy Lab",icon:"⚗️",base:75000000000,cps:1600000,owned:0},
+    {name:"Portal",icon:"🌀",base:1000000000000,cps:10000000,owned:0},
+    {name:"Time Machine",icon:"⏰",base:14000000000000,cps:65000000,owned:0},
+    {name:"Antimatter Condenser",icon:"⚛️",base:170000000000000,cps:430000000,owned:0},
+    {name:"Prism",icon:"🌈",base:2100000000000000,cps:2900000000,owned:0},
+    {name:"Chancemaker",icon:"🎰",base:26000000000000000,cps:19000000000,owned:0},
+    {name:"Fractal Engine",icon:"🔷",base:310000000000000000,cps:120000000000,owned:0},
+    {name:"Javascript Console",icon:"💻",base:71000000000000000000,cps:720000000000,owned:0},
+    {name:"Idleverse",icon:"🌌",base:12000000000000000000000,cps:4500000000000,owned:0},
+    {name:"Cortex Baker",icon:"🧠",base:1900000000000000000000000,cps:27000000000000,owned:0},
+    {name:"You",icon:"👤",base:540000000000000000000000000,cps:160000000000000,owned:0}
 
 ];
 
 
-/* =====================================================
-   UPGRADES
-===================================================== */
+/* ================= UPGRADES ================= */
 
 let upgrades = [
 
-    {
-        name:"Better Fingers",
-        icon:"☝️",
-        price:100,
-        type:"click",
-        mult:2
-    },
+    {name:"Better Fingers",icon:"☝️",price:100,type:"click",mult:2},
+    {name:"Strong Fingers",icon:"💪",price:1000,type:"click",mult:2},
+    {name:"Golden Dough",icon:"🟡",price:10000,type:"click",mult:2},
 
-    {
-        name:"Strong Fingers",
-        icon:"💪",
-        price:1000,
-        type:"click",
-        mult:2
-    },
-
-    {
-        name:"Golden Dough",
-        icon:"🟡",
-        price:10000,
-        type:"click",
-        mult:2
-    },
-
-    {
-        name:"Reinforced Cursor",
-        icon:"🖱️",
-        price:500,
-        type:"building",
-        building:0,
-        mult:2
-    },
-
-    {
-        name:"Grandma's Recipe",
-        icon:"📖",
-        price:3000,
-        type:"building",
-        building:1,
-        mult:2
-    },
-
-    {
-        name:"Farm Science",
-        icon:"🌱",
-        price:15000,
-        type:"building",
-        building:2,
-        mult:2
-    },
-
-    {
-        name:"Better Pickaxes",
-        icon:"⛏️",
-        price:75000,
-        type:"building",
-        building:3,
-        mult:2
-    },
-
-    {
-        name:"Factory Automation",
-        icon:"⚙️",
-        price:300000,
-        type:"building",
-        building:4,
-        mult:2
-    },
-
-    {
-        name:"Banking System",
-        icon:"💰",
-        price:1500000,
-        type:"building",
-        building:5,
-        mult:2
-    },
-
-    {
-        name:"Temple Blessing",
-        icon:"✨",
-        price:7000000,
-        type:"building",
-        building:6,
-        mult:2
-    },
-
-    {
-        name:"Magic Research",
-        icon:"🔮",
-        price:30000000,
-        type:"building",
-        building:7,
-        mult:2
-    },
-
-    {
-        name:"Rocket Engineering",
-        icon:"🚀",
-        price:150000000,
-        type:"building",
-        building:8,
-        mult:2
-    },
-
-    {
-        name:"Advanced Alchemy",
-        icon:"🧪",
-        price:800000000,
-        type:"building",
-        building:9,
-        mult:2
-    },
-
-    {
-        name:"Portal Control",
-        icon:"🌀",
-        price:4000000000,
-        type:"building",
-        building:10,
-        mult:2
-    },
-
-    {
-        name:"Time Mastery",
-        icon:"⌛",
-        price:20000000000,
-        type:"building",
-        building:11,
-        mult:2
-    }
+    {name:"Reinforced Cursor",icon:"🖱️",price:500,type:"building",building:0,mult:2},
+    {name:"Grandma's Recipe",icon:"📖",price:3000,type:"building",building:1,mult:2},
+    {name:"Farm Science",icon:"🌱",price:15000,type:"building",building:2,mult:2},
+    {name:"Better Pickaxes",icon:"⛏️",price:75000,type:"building",building:3,mult:2},
+    {name:"Factory Automation",icon:"⚙️",price:300000,type:"building",building:4,mult:2},
+    {name:"Banking System",icon:"💰",price:1500000,type:"building",building:5,mult:2},
+    {name:"Temple Blessing",icon:"✨",price:7000000,type:"building",building:6,mult:2},
+    {name:"Magic Research",icon:"🔮",price:30000000,type:"building",building:7,mult:2},
+    {name:"Rocket Engineering",icon:"🚀",price:150000000,type:"building",building:8,mult:2},
+    {name:"Advanced Alchemy",icon:"🧪",price:800000000,type:"building",building:9,mult:2},
+    {name:"Portal Control",icon:"🌀",price:4000000000,type:"building",building:10,mult:2},
+    {name:"Time Mastery",icon:"⌛",price:20000000000,type:"building",building:11,mult:2}
 
 ];
 
 let boughtUpgrades = [];
 
 
-/* =====================================================
-   ACHIEVEMENTS
-===================================================== */
-
-let achievements = [
-
-    {
-        name:"First Cookie",
-        icon:"🍪",
-        check:()=>totalCookies>=1
-    },
-
-    {
-        name:"Hundred Cookies",
-        icon:"💯",
-        check:()=>totalCookies>=100
-    },
-
-    {
-        name:"Thousand Cookies",
-        icon:"🥉",
-        check:()=>totalCookies>=1000
-    },
-
-    {
-        name:"Cookie Hoarder",
-        icon:"🍪",
-        check:()=>totalCookies>=100000
-    },
-
-    {
-        name:"Millionaire",
-        icon:"💰",
-        check:()=>totalCookies>=1000000
-    },
-
-    {
-        name:"Ten Million",
-        icon:"💎",
-        check:()=>totalCookies>=10000000
-    },
-
-    {
-        name:"Click Master",
-        icon:"👆",
-        check:()=>clickPower>=4
-    },
-
-    {
-        name:"Collector",
-        icon:"🏪",
-        check:()=>buildings.reduce(
-            (a,b)=>a+b.owned,0
-        )>=10
-    },
-
-    {
-        name:"Factory Owner",
-        icon:"🏭",
-        check:()=>buildings[4].owned>=10
-    },
-
-    {
-        name:"Big Business",
-        icon:"🏢",
-        check:()=>buildings.reduce(
-            (a,b)=>a+b.owned,0
-        )>=50
-    },
-
-    {
-        name:"Golden Touch",
-        icon:"✨",
-        check:()=>goldenCookies>=1
-    },
-
-    {
-        name:"Lucky",
-        icon:"🍀",
-        check:()=>goldenCookies>=7
-    }
-
-];
-
-let unlockedAchievements=[];
-
-
-/* =====================================================
-   NUMBER FORMAT
-===================================================== */
+/* ================= NUMBER FORMAT ================= */
 
 function fmt(n){
 
     if(!isFinite(n))
         return "∞";
 
-    if(n<1000)
+    if(n < 1000)
         return Math.floor(n).toLocaleString();
 
     const units=[
-        "K",
-        "M",
-        "B",
-        "T",
-        "Qa",
-        "Qi",
-        "Sx",
-        "Sp",
-        "Oc",
-        "No",
-        "Dc"
+        "K","M","B","T","Qa",
+        "Qi","Sx","Sp","Oc","No","Dc"
     ];
 
-    let tier=
-        Math.floor(
-            Math.log10(n)/3
-        );
+    let tier=Math.floor(Math.log10(n)/3);
 
-    if(tier>units.length)
+    if(tier > units.length)
         return n.toExponential(2);
 
     return(
@@ -1238,9 +633,7 @@ function fmt(n){
 }
 
 
-/* =====================================================
-   BUILDING MULTIPLIERS
-===================================================== */
+/* ================= MULTIPLIERS ================= */
 
 function buildingMultiplier(index){
 
@@ -1253,9 +646,7 @@ function buildingMultiplier(index){
             u.building===index &&
             boughtUpgrades.includes(i)
         ){
-
             mult*=u.mult;
-
         }
 
     });
@@ -1264,9 +655,7 @@ function buildingMultiplier(index){
 }
 
 
-/* =====================================================
-   CPS
-===================================================== */
+/* ================= CPS ================= */
 
 function getCps(){
 
@@ -1288,12 +677,9 @@ function getCps(){
 }
 
 
-/* =====================================================
-   COOKIE CLICK
-===================================================== */
+/* ================= COOKIE CLICK ================= */
 
-document.getElementById("cookie")
-.onclick=function(e){
+document.getElementById("cookie").onclick=function(e){
 
     let amount=clickPower;
 
@@ -1301,7 +687,6 @@ document.getElementById("cookie")
         amount*=7;
 
     cookies+=amount;
-
     totalCookies+=amount;
 
     floatingNumber(
@@ -1310,20 +695,15 @@ document.getElementById("cookie")
         e.clientY
     );
 
-    checkAchievements();
-
     update();
 };
 
 
-/* =====================================================
-   FLOATING NUMBER
-===================================================== */
+/* ================= FLOATING NUMBER ================= */
 
 function floatingNumber(text,x,y){
 
-    let el=
-        document.createElement("div");
+    let el=document.createElement("div");
 
     el.className="clickNumber";
 
@@ -1340,19 +720,13 @@ function floatingNumber(text,x,y){
 }
 
 
-/* =====================================================
-   BULK COST
-===================================================== */
+/* ================= BULK COST ================= */
 
 function bulkCost(index,amount){
 
     let total=0;
 
-    for(
-        let i=0;
-        i<amount;
-        i++
-    ){
+    for(let i=0;i<amount;i++){
 
         total+=Math.floor(
             buildings[index].base*
@@ -1368,19 +742,13 @@ function bulkCost(index,amount){
 }
 
 
-/* =====================================================
-   BUY BUILDING
-===================================================== */
+/* ================= BUY BUILDING ================= */
 
 function buyBuilding(index){
 
     let amount=buyMode;
 
-    let cost=
-        bulkCost(
-            index,
-            amount
-        );
+    let cost=bulkCost(index,amount);
 
     if(cookies<cost)
         return;
@@ -1390,41 +758,28 @@ function buyBuilding(index){
     buildings[index].owned+=amount;
 
     showNotification(
-        "+"+
-        amount+
-        " "+
+        "+"+amount+" "+
         buildings[index].name
     );
-
-    checkAchievements();
 
     update();
 }
 
 
-/* =====================================================
-   RENDER BUILDINGS
-===================================================== */
+/* ================= BUILDINGS ================= */
 
 function renderBuildings(){
 
     let container=
-        document.getElementById(
-            "buildings"
-        );
+        document.getElementById("buildings");
 
     container.innerHTML="";
 
     buildings.forEach((b,i)=>{
 
-        let cost=
-            bulkCost(
-                i,
-                buyMode
-            );
+        let cost=bulkCost(i,buyMode);
 
-        let div=
-            document.createElement("div");
+        let div=document.createElement("div");
 
         div.className="building";
 
@@ -1447,8 +802,7 @@ function renderBuildings(){
                     ${fmt(
                         b.cps*
                         buildingMultiplier(i)
-                    )}
-                    /sec
+                    )}/sec
                 </div>
 
                 <div class="buildingPrice">
@@ -1460,11 +814,9 @@ function renderBuildings(){
             <div class="buildingOwned">
                 ${b.owned}
             </div>
-
         `;
 
-        div.onclick=
-            ()=>buyBuilding(i);
+        div.onclick=()=>buyBuilding(i);
 
         container.appendChild(div);
 
@@ -1472,9 +824,7 @@ function renderBuildings(){
 }
 
 
-/* =====================================================
-   BUY UPGRADE
-===================================================== */
+/* ================= BUY UPGRADE ================= */
 
 function buyUpgrade(index){
 
@@ -1494,45 +844,33 @@ function buyUpgrade(index){
         clickPower*=u.mult;
 
     showNotification(
-        "Upgrade bought: "+
-        u.name
+        "Upgrade bought: "+u.name
     );
-
-    checkAchievements();
 
     update();
 }
 
 
-/* =====================================================
-   RENDER UPGRADES
-===================================================== */
+/* ================= UPGRADES ================= */
 
 function renderUpgrades(){
 
     let grid=
-        document.getElementById(
-            "upgradeGrid"
-        );
+        document.getElementById("upgradeGrid");
 
     grid.innerHTML="";
 
     upgrades.forEach((u,i)=>{
 
-        if(
-            boughtUpgrades.includes(i)
-        )
+        if(boughtUpgrades.includes(i))
             return;
 
-        let div=
-            document.createElement("div");
+        let div=document.createElement("div");
 
         div.className="upgrade";
 
         if(cookies<u.price)
-            div.classList.add(
-                "unaffordable"
-            );
+            div.classList.add("unaffordable");
 
         div.innerHTML=`
 
@@ -1550,8 +888,7 @@ function renderUpgrades(){
 
         `;
 
-        div.onclick=
-            ()=>buyUpgrade(i);
+        div.onclick=()=>buyUpgrade(i);
 
         grid.appendChild(div);
 
@@ -1559,99 +896,29 @@ function renderUpgrades(){
 }
 
 
-/* =====================================================
-   ACHIEVEMENTS
-===================================================== */
-
-function checkAchievements(){
-
-    achievements.forEach((a,i)=>{
-
-        if(
-            !unlockedAchievements.includes(i) &&
-            a.check()
-        ){
-
-            unlockedAchievements.push(i);
-
-            showNotification(
-                "Achievement unlocked: "+
-                a.name
-            );
-
-        }
-
-    });
-}
-
-
-function renderAchievements(){
-
-    let grid=
-        document.getElementById(
-            "achievementGrid"
-        );
-
-    grid.innerHTML="";
-
-    achievements.forEach((a,i)=>{
-
-        let div=
-            document.createElement("div");
-
-        div.className="achievement";
-
-        if(
-            unlockedAchievements.includes(i)
-        ){
-
-            div.classList.add(
-                "unlocked"
-            );
-
-        }
-
-        div.textContent=a.icon;
-
-        div.title=a.name;
-
-        grid.appendChild(div);
-
-    });
-}
-
-
-/* =====================================================
-   GOLDEN COOKIE
-===================================================== */
+/* ================= GOLDEN COOKIE ================= */
 
 function spawnGolden(){
 
     let g=
-        document.getElementById(
-            "goldenCookie"
-        );
+        document.getElementById("goldenCookie");
 
     g.style.display="block";
 
     g.style.left=
         Math.max(
             20,
-            Math.random()*
-            (innerWidth-110)
+            Math.random()*(innerWidth-110)
         )+"px";
 
     g.style.top=
         Math.max(
             60,
-            Math.random()*
-            (innerHeight-130)
+            Math.random()*(innerHeight-130)
         )+"px";
 
     setTimeout(()=>{
-
         g.style.display="none";
-
     },12000);
 }
 
@@ -1661,9 +928,7 @@ document.getElementById(
 ).onclick=()=>{
 
     let g=
-        document.getElementById(
-            "goldenCookie"
-        );
+        document.getElementById("goldenCookie");
 
     g.style.display="none";
 
@@ -1678,7 +943,6 @@ document.getElementById(
             );
 
         cookies+=reward;
-
         totalCookies+=reward;
 
         showNotification(
@@ -1687,8 +951,7 @@ document.getElementById(
             " cookies"
         );
 
-    }
-    else{
+    }else{
 
         frenzyUntil=
             Date.now()+77000;
@@ -1698,8 +961,6 @@ document.getElementById(
         );
 
     }
-
-    checkAchievements();
 
     update();
 };
@@ -1713,75 +974,24 @@ setInterval(()=>{
 },30000);
 
 
-/* =====================================================
-   TABS
-===================================================== */
-
-document.querySelectorAll(".tab")
-.forEach(button=>{
-
-    button.onclick=()=>{
-
-        document.querySelectorAll(".tab")
-        .forEach(x=>
-            x.classList.remove(
-                "active"
-            )
-        );
-
-        button.classList.add(
-            "active"
-        );
-
-        document.querySelectorAll(
-            ".tabContent"
-        )
-        .forEach(x=>
-            x.classList.add(
-                "hidden"
-            )
-        );
-
-        document.getElementById(
-            button.dataset.tab+
-            "Tab"
-        ).classList.remove(
-            "hidden"
-        );
-
-    };
-
-});
-
-
-/* =====================================================
-   BUY MODES
-===================================================== */
+/* ================= BUY MODE ================= */
 
 document.querySelectorAll(
     "#buyMode button"
-)
-.forEach(button=>{
+).forEach(button=>{
 
     button.onclick=()=>{
 
         document.querySelectorAll(
             "#buyMode button"
-        )
-        .forEach(x=>
-            x.classList.remove(
-                "active"
-            )
+        ).forEach(x=>
+            x.classList.remove("active")
         );
 
-        button.classList.add(
-            "active"
-        );
+        button.classList.add("active");
 
         buyMode=
-            Number(
-                button.dataset.mode
-            );
+            Number(button.dataset.mode);
 
         renderBuildings();
 
@@ -1790,39 +1000,29 @@ document.querySelectorAll(
 });
 
 
-/* =====================================================
-   NOTIFICATION
-===================================================== */
+/* ================= NOTIFICATION ================= */
 
 let notificationTimer;
 
 function showNotification(text){
 
     let n=
-        document.getElementById(
-            "notification"
-        );
+        document.getElementById("notification");
 
     n.textContent=text;
 
     n.style.display="block";
 
-    clearTimeout(
-        notificationTimer
-    );
+    clearTimeout(notificationTimer);
 
     notificationTimer=
         setTimeout(()=>{
-
             n.style.display="none";
-
         },2500);
 }
 
 
-/* =====================================================
-   SAVE
-===================================================== */
+/* ================= SAVE ================= */
 
 function saveGame(){
 
@@ -1837,51 +1037,31 @@ function saveGame(){
             goldenCookies,
 
             buildings,
-
-            boughtUpgrades,
-
-            unlockedAchievements
+            boughtUpgrades
 
         })
     );
 }
 
 
-/* =====================================================
-   LOAD
-===================================================== */
+/* ================= LOAD ================= */
 
 function loadGame(){
 
     let save=
-        localStorage.getItem(
-            "cookieEmpire"
-        );
+        localStorage.getItem("cookieEmpire");
 
     if(!save)
         return;
 
     try{
 
-        let data=
-            JSON.parse(save);
+        let data=JSON.parse(save);
 
-        cookies=
-            data.cookies||0;
-
-        totalCookies=
-            data.totalCookies||0;
-
-        clickPower=
-            data.clickPower||1;
-
-        goldenCookies=
-            data.goldenCookies||0;
-
-        /*
-          Keep the NEW building names
-          and prices, but restore ownership.
-        */
+        cookies=data.cookies||0;
+        totalCookies=data.totalCookies||0;
+        clickPower=data.clickPower||1;
+        goldenCookies=data.goldenCookies||0;
 
         if(data.buildings){
 
@@ -1890,8 +1070,7 @@ function loadGame(){
 
                     if(
                         buildings[i] &&
-                        typeof oldBuilding.owned
-                        ==="number"
+                        typeof oldBuilding.owned==="number"
                     ){
 
                         buildings[i].owned=
@@ -1907,11 +1086,7 @@ function loadGame(){
         boughtUpgrades=
             data.boughtUpgrades||[];
 
-        unlockedAchievements=
-            data.unlockedAchievements||[];
-
-    }
-    catch(e){
+    }catch(e){
 
         console.log(
             "Save could not be loaded."
@@ -1921,9 +1096,7 @@ function loadGame(){
 }
 
 
-/* =====================================================
-   RESET
-===================================================== */
+/* ================= RESET ================= */
 
 function resetGame(){
 
@@ -1942,9 +1115,7 @@ function resetGame(){
 }
 
 
-/* =====================================================
-   UPDATE
-===================================================== */
+/* ================= UPDATE ================= */
 
 function update(){
 
@@ -1953,67 +1124,21 @@ function update(){
     document.getElementById(
         "cookieCount"
     ).textContent=
-        fmt(cookies)+
-        " cookies";
+        fmt(cookies)+" cookies";
 
     document.getElementById(
         "perSecond"
     ).textContent=
-        "per second: "+
-        fmt(cps);
-
-    document.getElementById(
-        "statCookies"
-    ).textContent=
-        fmt(totalCookies);
-
-    document.getElementById(
-        "statCps"
-    ).textContent=
-        fmt(cps);
-
-    document.getElementById(
-        "statClick"
-    ).textContent=
-        fmt(clickPower);
-
-    document.getElementById(
-        "statBuildings"
-    ).textContent=
-        buildings.reduce(
-            (sum,b)=>
-                sum+b.owned,
-            0
-        );
-
-    document.getElementById(
-        "statUpgrades"
-    ).textContent=
-        boughtUpgrades.length;
-
-    document.getElementById(
-        "statAchievements"
-    ).textContent=
-        unlockedAchievements.length+
-        "/"+
-        achievements.length;
-
-    document.getElementById(
-        "statGolden"
-    ).textContent=
-        goldenCookies;
+        "per second: "+fmt(cps);
 
     renderBuildings();
     renderUpgrades();
-    renderAchievements();
 
     saveGame();
 }
 
 
-/* =====================================================
-   COOKIE PRODUCTION LOOP
-===================================================== */
+/* ================= COOKIE PRODUCTION ================= */
 
 let lastTime=Date.now();
 
@@ -2030,19 +1155,14 @@ setInterval(()=>{
         getCps()*elapsed;
 
     cookies+=amount;
-
     totalCookies+=amount;
-
-    checkAchievements();
 
     update();
 
 },100);
 
 
-/* =====================================================
-   START
-===================================================== */
+/* ================= START ================= */
 
 loadGame();
 
