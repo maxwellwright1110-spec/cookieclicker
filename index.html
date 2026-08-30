@@ -31,7 +31,7 @@ body{
     background:linear-gradient(135deg,#061a38,#0b4f91,#082c5c);
 }
 
-/* LEFT */
+/* ================= COOKIE SIDE ================= */
 
 #left{
     height:100vh;
@@ -73,6 +73,7 @@ body{
     right:0;
     top:125px;
     bottom:0;
+
     display:flex;
     align-items:center;
     justify-content:center;
@@ -112,7 +113,7 @@ body{
     transform:scale(.93);
 }
 
-/* CENTER */
+/* ================= BUILDINGS ================= */
 
 #middle{
     height:100vh;
@@ -123,12 +124,15 @@ body{
 
 .panelHeader{
     height:48px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     padding:0 10px;
 
     background:linear-gradient(#1267ad,#084477);
+
     border-bottom:2px solid #031b38;
 
     font-size:15px;
@@ -154,32 +158,102 @@ body{
     background:#2196e0;
 }
 
+/*
+   ONLY THIS SECTION SCROLLS
+*/
+
 #buildings{
     height:calc(100vh - 48px);
-    padding:3px;
-    overflow:hidden;
+
+    padding:7px;
+
+    overflow-y:auto;
+    overflow-x:hidden;
 
     display:grid;
-    grid-template-rows:repeat(20,1fr);
-    gap:2px;
+
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
+
+    grid-auto-rows:minmax(105px,1fr);
+
+    gap:7px;
+
+    align-content:start;
 }
 
+/* Scrollbar */
+
+#buildings::-webkit-scrollbar{
+    width:10px;
+}
+
+#buildings::-webkit-scrollbar-track{
+    background:#05254a;
+}
+
+#buildings::-webkit-scrollbar-thumb{
+    background:#1c72ae;
+    border-radius:5px;
+}
+
+#buildings::-webkit-scrollbar-thumb:hover{
+    background:#2b91d2;
+}
+
+/* SQUARE BUILDING CARDS */
+
 .building{
-    min-height:0;
+    aspect-ratio:1 / 1;
+
+    min-width:0;
 
     display:flex;
+    flex-direction:column;
+
     align-items:center;
+    justify-content:space-between;
 
-    background:linear-gradient(90deg,#0c477d,#09365f);
+    text-align:center;
 
-    border:1px solid #1b6ba5;
+    padding:7px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #105384,
+            #082e54
+        );
+
+    border:2px solid #1c70a7;
+
+    border-radius:6px;
 
     cursor:pointer;
+
     overflow:hidden;
+
+    transition:
+        transform .08s,
+        background .08s,
+        border-color .08s;
 }
 
 .building:hover{
-    background:linear-gradient(90deg,#12609b,#0c4778);
+    background:
+        linear-gradient(
+            145deg,
+            #176b9f,
+            #0b3f6d
+        );
+
+    border-color:#48a7df;
+
+    transform:scale(1.02);
+}
+
+.building:active{
+    transform:scale(.97);
 }
 
 .building.locked{
@@ -187,63 +261,74 @@ body{
 }
 
 .buildingIcon{
-    width:42px;
-    min-width:42px;
-    height:100%;
+    width:100%;
 
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
 
-    font-size:23px;
+    font-size:28px;
 
-    background:rgba(0,0,0,.15);
+    padding-top:2px;
 }
 
 .buildingInfo{
-    flex:1;
+    width:100%;
     min-width:0;
-    padding:2px 6px;
 }
 
 .buildingName{
-    font-size:12px;
+    font-size:11px;
     font-weight:bold;
 
-    white-space:nowrap;
+    line-height:1.05;
+
+    white-space:normal;
+
     overflow:hidden;
-    text-overflow:ellipsis;
 }
 
 .buildingDesc{
-    font-size:9px;
+    font-size:8px;
     color:#b8ddf5;
+
+    margin-top:3px;
 }
 
 .buildingPrice{
     color:#ffe082;
-    font-size:10px;
+
+    font-size:9px;
+
+    margin-top:4px;
+
+    white-space:nowrap;
 }
 
 .buildingOwned{
-    width:38px;
-    min-width:38px;
+    width:100%;
 
-    text-align:center;
+    font-size:17px;
 
-    font-size:18px;
     font-weight:bold;
 
     color:#a9dcff;
+
+    padding-bottom:2px;
 }
 
-/* RIGHT - UPGRADES ONLY */
+/* ================= UPGRADES ================= */
 
 #right{
     height:100vh;
     overflow:hidden;
 
-    background:linear-gradient(180deg,#06315e,#041d3a);
+    background:
+        linear-gradient(
+            180deg,
+            #06315e,
+            #041d3a
+        );
 }
 
 .upgradeHeader{
@@ -254,7 +339,11 @@ body{
 
     padding:0 12px;
 
-    background:linear-gradient(#1267ad,#084477);
+    background:
+        linear-gradient(
+            #1267ad,
+            #084477
+        );
 
     border-bottom:2px solid #031b38;
 
@@ -264,7 +353,9 @@ body{
 
 #upgradesArea{
     height:calc(100vh - 48px);
+
     padding:8px;
+
     overflow:hidden;
 }
 
@@ -273,7 +364,8 @@ body{
 
     display:grid;
 
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
 
     grid-auto-rows:75px;
 
@@ -282,7 +374,10 @@ body{
 
 .upgrade{
     background:#0b4778;
+
     border:1px solid #328bc3;
+
+    border-radius:5px;
 
     padding:6px;
 
@@ -317,7 +412,7 @@ body{
     font-size:9px;
 }
 
-/* GOLDEN COOKIE */
+/* ================= GOLDEN COOKIE ================= */
 
 #goldenCookie{
     position:fixed;
@@ -349,6 +444,7 @@ body{
 }
 
 @keyframes goldSpin{
+
     from{
         transform:scale(.9) rotate(-8deg);
     }
@@ -356,15 +452,18 @@ body{
     to{
         transform:scale(1.08) rotate(8deg);
     }
+
 }
 
-/* CLICK NUMBERS */
+/* ================= CLICK NUMBERS ================= */
 
 .clickNumber{
     position:fixed;
+
     pointer-events:none;
 
     font-size:20px;
+
     font-weight:bold;
 
     color:white;
@@ -377,13 +476,15 @@ body{
 }
 
 @keyframes floatUp{
+
     to{
         transform:translateY(-80px);
         opacity:0;
     }
+
 }
 
-/* NOTIFICATION */
+/* ================= NOTIFICATION ================= */
 
 #notification{
     position:fixed;
@@ -408,7 +509,7 @@ body{
     font-size:13px;
 }
 
-/* SMALL SCREENS */
+/* ================= SMALL SCREENS ================= */
 
 @media(max-width:850px){
 
@@ -428,10 +529,15 @@ body{
         width:80%;
     }
 
+    #buildings{
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+        grid-auto-rows:minmax(100px,1fr);
+    }
+
     .buildingIcon{
-        width:32px;
-        min-width:32px;
-        font-size:18px;
+        font-size:22px;
     }
 
     .buildingName{
@@ -439,7 +545,7 @@ body{
     }
 
     .buildingDesc{
-        display:none;
+        font-size:7px;
     }
 
     .buildingPrice{
@@ -447,8 +553,6 @@ body{
     }
 
     .buildingOwned{
-        width:28px;
-        min-width:28px;
         font-size:14px;
     }
 }
@@ -496,7 +600,9 @@ body{
 
             <div id="buyMode">
 
-                <button data-mode="1" class="active">
+                <button
+                    data-mode="1"
+                    class="active">
                     1
                 </button>
 
@@ -526,7 +632,9 @@ body{
         </div>
 
         <div id="upgradesArea">
+
             <div id="upgradeGrid"></div>
+
         </div>
 
     </section>
@@ -557,26 +665,165 @@ let frenzyUntil = 0;
 
 let buildings = [
 
-    {name:"Cursor",icon:"👆",base:15,cps:0.1,owned:0},
-    {name:"Grandma",icon:"👵",base:100,cps:1,owned:0},
-    {name:"Farm",icon:"🌾",base:1100,cps:8,owned:0},
-    {name:"Mine",icon:"⛏️",base:12000,cps:47,owned:0},
-    {name:"Factory",icon:"🏭",base:130000,cps:260,owned:0},
-    {name:"Bank",icon:"🏦",base:1400000,cps:1400,owned:0},
-    {name:"Temple",icon:"⛪",base:20000000,cps:7800,owned:0},
-    {name:"Wizard Tower",icon:"🧙",base:330000000,cps:44000,owned:0},
-    {name:"Shipment",icon:"🚀",base:5100000000,cps:260000,owned:0},
-    {name:"Alchemy Lab",icon:"⚗️",base:75000000000,cps:1600000,owned:0},
-    {name:"Portal",icon:"🌀",base:1000000000000,cps:10000000,owned:0},
-    {name:"Time Machine",icon:"⏰",base:14000000000000,cps:65000000,owned:0},
-    {name:"Antimatter Condenser",icon:"⚛️",base:170000000000000,cps:430000000,owned:0},
-    {name:"Prism",icon:"🌈",base:2100000000000000,cps:2900000000,owned:0},
-    {name:"Chancemaker",icon:"🎰",base:26000000000000000,cps:19000000000,owned:0},
-    {name:"Fractal Engine",icon:"🔷",base:310000000000000000,cps:120000000000,owned:0},
-    {name:"Javascript Console",icon:"💻",base:71000000000000000000,cps:720000000000,owned:0},
-    {name:"Idleverse",icon:"🌌",base:12000000000000000000000,cps:4500000000000,owned:0},
-    {name:"Cortex Baker",icon:"🧠",base:1900000000000000000000000,cps:27000000000000,owned:0},
-    {name:"You",icon:"👤",base:540000000000000000000000000,cps:160000000000000,owned:0}
+    {
+        name:"Cursor",
+        icon:"👆",
+        base:15,
+        cps:0.1,
+        owned:0
+    },
+
+    {
+        name:"Grandma",
+        icon:"👵",
+        base:100,
+        cps:1,
+        owned:0
+    },
+
+    {
+        name:"Farm",
+        icon:"🌾",
+        base:1100,
+        cps:8,
+        owned:0
+    },
+
+    {
+        name:"Mine",
+        icon:"⛏️",
+        base:12000,
+        cps:47,
+        owned:0
+    },
+
+    {
+        name:"Factory",
+        icon:"🏭",
+        base:130000,
+        cps:260,
+        owned:0
+    },
+
+    {
+        name:"Bank",
+        icon:"🏦",
+        base:1400000,
+        cps:1400,
+        owned:0
+    },
+
+    {
+        name:"Temple",
+        icon:"⛪",
+        base:20000000,
+        cps:7800,
+        owned:0
+    },
+
+    {
+        name:"Wizard Tower",
+        icon:"🧙",
+        base:330000000,
+        cps:44000,
+        owned:0
+    },
+
+    {
+        name:"Shipment",
+        icon:"🚀",
+        base:5100000000,
+        cps:260000,
+        owned:0
+    },
+
+    {
+        name:"Alchemy Lab",
+        icon:"⚗️",
+        base:75000000000,
+        cps:1600000,
+        owned:0
+    },
+
+    {
+        name:"Portal",
+        icon:"🌀",
+        base:1000000000000,
+        cps:10000000,
+        owned:0
+    },
+
+    {
+        name:"Time Machine",
+        icon:"⏰",
+        base:14000000000000,
+        cps:65000000,
+        owned:0
+    },
+
+    {
+        name:"Antimatter Condenser",
+        icon:"⚛️",
+        base:170000000000000,
+        cps:430000000,
+        owned:0
+    },
+
+    {
+        name:"Prism",
+        icon:"🌈",
+        base:2100000000000000,
+        cps:2900000000,
+        owned:0
+    },
+
+    {
+        name:"Chancemaker",
+        icon:"🎰",
+        base:26000000000000000,
+        cps:19000000000,
+        owned:0
+    },
+
+    {
+        name:"Fractal Engine",
+        icon:"🔷",
+        base:310000000000000000,
+        cps:120000000000,
+        owned:0
+    },
+
+    {
+        name:"Javascript Console",
+        icon:"💻",
+        base:71000000000000000000,
+        cps:720000000000,
+        owned:0
+    },
+
+    {
+        name:"Idleverse",
+        icon:"🌌",
+        base:12000000000000000000000,
+        cps:4500000000000,
+        owned:0
+    },
+
+    {
+        name:"Cortex Baker",
+        icon:"🧠",
+        base:1900000000000000000000000,
+        cps:27000000000000,
+        owned:0
+    },
+
+    {
+        name:"You",
+        icon:"👤",
+        base:540000000000000000000000000,
+        cps:160000000000000,
+        owned:0
+    }
 
 ];
 
@@ -585,22 +832,137 @@ let buildings = [
 
 let upgrades = [
 
-    {name:"Better Fingers",icon:"☝️",price:100,type:"click",mult:2},
-    {name:"Strong Fingers",icon:"💪",price:1000,type:"click",mult:2},
-    {name:"Golden Dough",icon:"🟡",price:10000,type:"click",mult:2},
+    {
+        name:"Better Fingers",
+        icon:"☝️",
+        price:100,
+        type:"click",
+        mult:2
+    },
 
-    {name:"Reinforced Cursor",icon:"🖱️",price:500,type:"building",building:0,mult:2},
-    {name:"Grandma's Recipe",icon:"📖",price:3000,type:"building",building:1,mult:2},
-    {name:"Farm Science",icon:"🌱",price:15000,type:"building",building:2,mult:2},
-    {name:"Better Pickaxes",icon:"⛏️",price:75000,type:"building",building:3,mult:2},
-    {name:"Factory Automation",icon:"⚙️",price:300000,type:"building",building:4,mult:2},
-    {name:"Banking System",icon:"💰",price:1500000,type:"building",building:5,mult:2},
-    {name:"Temple Blessing",icon:"✨",price:7000000,type:"building",building:6,mult:2},
-    {name:"Magic Research",icon:"🔮",price:30000000,type:"building",building:7,mult:2},
-    {name:"Rocket Engineering",icon:"🚀",price:150000000,type:"building",building:8,mult:2},
-    {name:"Advanced Alchemy",icon:"🧪",price:800000000,type:"building",building:9,mult:2},
-    {name:"Portal Control",icon:"🌀",price:4000000000,type:"building",building:10,mult:2},
-    {name:"Time Mastery",icon:"⌛",price:20000000000,type:"building",building:11,mult:2}
+    {
+        name:"Strong Fingers",
+        icon:"💪",
+        price:1000,
+        type:"click",
+        mult:2
+    },
+
+    {
+        name:"Golden Dough",
+        icon:"🟡",
+        price:10000,
+        type:"click",
+        mult:2
+    },
+
+    {
+        name:"Reinforced Cursor",
+        icon:"🖱️",
+        price:500,
+        type:"building",
+        building:0,
+        mult:2
+    },
+
+    {
+        name:"Grandma's Recipe",
+        icon:"📖",
+        price:3000,
+        type:"building",
+        building:1,
+        mult:2
+    },
+
+    {
+        name:"Farm Science",
+        icon:"🌱",
+        price:15000,
+        type:"building",
+        building:2,
+        mult:2
+    },
+
+    {
+        name:"Better Pickaxes",
+        icon:"⛏️",
+        price:75000,
+        type:"building",
+        building:3,
+        mult:2
+    },
+
+    {
+        name:"Factory Automation",
+        icon:"⚙️",
+        price:300000,
+        type:"building",
+        building:4,
+        mult:2
+    },
+
+    {
+        name:"Banking System",
+        icon:"💰",
+        price:1500000,
+        type:"building",
+        building:5,
+        mult:2
+    },
+
+    {
+        name:"Temple Blessing",
+        icon:"✨",
+        price:7000000,
+        type:"building",
+        building:6,
+        mult:2
+    },
+
+    {
+        name:"Magic Research",
+        icon:"🔮",
+        price:30000000,
+        type:"building",
+        building:7,
+        mult:2
+    },
+
+    {
+        name:"Rocket Engineering",
+        icon:"🚀",
+        price:150000000,
+        type:"building",
+        building:8,
+        mult:2
+    },
+
+    {
+        name:"Advanced Alchemy",
+        icon:"🧪",
+        price:800000000,
+        type:"building",
+        building:9,
+        mult:2
+    },
+
+    {
+        name:"Portal Control",
+        icon:"🌀",
+        price:4000000000,
+        type:"building",
+        building:10,
+        mult:2
+    },
+
+    {
+        name:"Time Mastery",
+        icon:"⌛",
+        price:20000000000,
+        type:"building",
+        building:11,
+        mult:2
+    }
 
 ];
 
@@ -614,7 +976,7 @@ function fmt(n){
     if(!isFinite(n))
         return "∞";
 
-    if(n < 1000)
+    if(n<1000)
         return Math.floor(n).toLocaleString();
 
     const units=[
@@ -622,9 +984,11 @@ function fmt(n){
         "Qi","Sx","Sp","Oc","No","Dc"
     ];
 
-    let tier=Math.floor(Math.log10(n)/3);
+    let tier=Math.floor(
+        Math.log10(n)/3
+    );
 
-    if(tier > units.length)
+    if(tier>units.length)
         return n.toExponential(2);
 
     return(
@@ -646,7 +1010,9 @@ function buildingMultiplier(index){
             u.building===index &&
             boughtUpgrades.includes(i)
         ){
+
             mult*=u.mult;
+
         }
 
     });
@@ -677,9 +1043,11 @@ function getCps(){
 }
 
 
-/* ================= COOKIE CLICK ================= */
+/* ================= COOKIE ================= */
 
-document.getElementById("cookie").onclick=function(e){
+document.getElementById(
+    "cookie"
+).onclick=function(e){
 
     let amount=clickPower;
 
@@ -748,7 +1116,10 @@ function buyBuilding(index){
 
     let amount=buyMode;
 
-    let cost=bulkCost(index,amount);
+    let cost=bulkCost(
+        index,
+        amount
+    );
 
     if(cookies<cost)
         return;
@@ -758,7 +1129,9 @@ function buyBuilding(index){
     buildings[index].owned+=amount;
 
     showNotification(
-        "+"+amount+" "+
+        "+"+
+        amount+
+        " "+
         buildings[index].name
     );
 
@@ -766,20 +1139,27 @@ function buyBuilding(index){
 }
 
 
-/* ================= BUILDINGS ================= */
+/* ================= RENDER BUILDINGS ================= */
 
 function renderBuildings(){
 
     let container=
-        document.getElementById("buildings");
+        document.getElementById(
+            "buildings"
+        );
 
     container.innerHTML="";
 
     buildings.forEach((b,i)=>{
 
-        let cost=bulkCost(i,buyMode);
+        let cost=
+            bulkCost(
+                i,
+                buyMode
+            );
 
-        let div=document.createElement("div");
+        let div=
+            document.createElement("div");
 
         div.className="building";
 
@@ -814,9 +1194,11 @@ function renderBuildings(){
             <div class="buildingOwned">
                 ${b.owned}
             </div>
+
         `;
 
-        div.onclick=()=>buyBuilding(i);
+        div.onclick=
+            ()=>buyBuilding(i);
 
         container.appendChild(div);
 
@@ -824,7 +1206,7 @@ function renderBuildings(){
 }
 
 
-/* ================= BUY UPGRADE ================= */
+/* ================= UPGRADES ================= */
 
 function buyUpgrade(index){
 
@@ -844,19 +1226,20 @@ function buyUpgrade(index){
         clickPower*=u.mult;
 
     showNotification(
-        "Upgrade bought: "+u.name
+        "Upgrade bought: "+
+        u.name
     );
 
     update();
 }
 
 
-/* ================= UPGRADES ================= */
-
 function renderUpgrades(){
 
     let grid=
-        document.getElementById("upgradeGrid");
+        document.getElementById(
+            "upgradeGrid"
+        );
 
     grid.innerHTML="";
 
@@ -865,12 +1248,15 @@ function renderUpgrades(){
         if(boughtUpgrades.includes(i))
             return;
 
-        let div=document.createElement("div");
+        let div=
+            document.createElement("div");
 
         div.className="upgrade";
 
         if(cookies<u.price)
-            div.classList.add("unaffordable");
+            div.classList.add(
+                "unaffordable"
+            );
 
         div.innerHTML=`
 
@@ -888,7 +1274,8 @@ function renderUpgrades(){
 
         `;
 
-        div.onclick=()=>buyUpgrade(i);
+        div.onclick=
+            ()=>buyUpgrade(i);
 
         grid.appendChild(div);
 
@@ -901,20 +1288,24 @@ function renderUpgrades(){
 function spawnGolden(){
 
     let g=
-        document.getElementById("goldenCookie");
+        document.getElementById(
+            "goldenCookie"
+        );
 
     g.style.display="block";
 
     g.style.left=
         Math.max(
             20,
-            Math.random()*(innerWidth-110)
+            Math.random()*
+            (innerWidth-110)
         )+"px";
 
     g.style.top=
         Math.max(
             60,
-            Math.random()*(innerHeight-130)
+            Math.random()*
+            (innerHeight-130)
         )+"px";
 
     setTimeout(()=>{
@@ -928,7 +1319,9 @@ document.getElementById(
 ).onclick=()=>{
 
     let g=
-        document.getElementById("goldenCookie");
+        document.getElementById(
+            "goldenCookie"
+        );
 
     g.style.display="none";
 
@@ -985,13 +1378,19 @@ document.querySelectorAll(
         document.querySelectorAll(
             "#buyMode button"
         ).forEach(x=>
-            x.classList.remove("active")
+            x.classList.remove(
+                "active"
+            )
         );
 
-        button.classList.add("active");
+        button.classList.add(
+            "active"
+        );
 
         buyMode=
-            Number(button.dataset.mode);
+            Number(
+                button.dataset.mode
+            );
 
         renderBuildings();
 
@@ -1007,13 +1406,17 @@ let notificationTimer;
 function showNotification(text){
 
     let n=
-        document.getElementById("notification");
+        document.getElementById(
+            "notification"
+        );
 
     n.textContent=text;
 
     n.style.display="block";
 
-    clearTimeout(notificationTimer);
+    clearTimeout(
+        notificationTimer
+    );
 
     notificationTimer=
         setTimeout(()=>{
@@ -1049,14 +1452,17 @@ function saveGame(){
 function loadGame(){
 
     let save=
-        localStorage.getItem("cookieEmpire");
+        localStorage.getItem(
+            "cookieEmpire"
+        );
 
     if(!save)
         return;
 
     try{
 
-        let data=JSON.parse(save);
+        let data=
+            JSON.parse(save);
 
         cookies=data.cookies||0;
         totalCookies=data.totalCookies||0;
@@ -1070,7 +1476,8 @@ function loadGame(){
 
                     if(
                         buildings[i] &&
-                        typeof oldBuilding.owned==="number"
+                        typeof oldBuilding.owned
+                        ==="number"
                     ){
 
                         buildings[i].owned=
@@ -1096,25 +1503,6 @@ function loadGame(){
 }
 
 
-/* ================= RESET ================= */
-
-function resetGame(){
-
-    if(
-        !confirm(
-            "Reset all cookie progress?"
-        )
-    )
-        return;
-
-    localStorage.removeItem(
-        "cookieEmpire"
-    );
-
-    location.reload();
-}
-
-
 /* ================= UPDATE ================= */
 
 function update(){
@@ -1124,12 +1512,14 @@ function update(){
     document.getElementById(
         "cookieCount"
     ).textContent=
-        fmt(cookies)+" cookies";
+        fmt(cookies)+
+        " cookies";
 
     document.getElementById(
         "perSecond"
     ).textContent=
-        "per second: "+fmt(cps);
+        "per second: "+
+        fmt(cps);
 
     renderBuildings();
     renderUpgrades();
@@ -1138,7 +1528,7 @@ function update(){
 }
 
 
-/* ================= COOKIE PRODUCTION ================= */
+/* ================= PRODUCTION ================= */
 
 let lastTime=Date.now();
 
